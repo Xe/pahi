@@ -8,6 +8,7 @@ let
   };
 in
 naersk.buildPackage {
+  name = "pahi";
   src = builtins.filterSource
     (path: type: type != "directory" || builtins.baseNameOf path != "target")
     ./.;
