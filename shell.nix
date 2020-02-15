@@ -5,6 +5,6 @@ let
   olin = import sources.olin { inherit pkgs; };
   rust = import ./nix/rust.nix { inherit sources; };
 in pkgs.mkShell {
-  buildInputs = [ rust.rust niv.niv olin pkgs.wasmer ];
+  buildInputs = [ rust niv.niv olin pkgs.wasmer ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 }

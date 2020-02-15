@@ -3,8 +3,8 @@ let
   rust = import ./nix/rust.nix { inherit sources; };
   pkgs = import sources.nixpkgs { };
   naersk = pkgs.callPackage sources.naersk {
-    rustc = rust.rust;
-    cargo = rust.rust;
+    rustc = rust;
+    cargo = rust;
   };
 in
 naersk.buildPackage {
