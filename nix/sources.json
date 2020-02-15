@@ -1,0 +1,62 @@
+{
+    "naersk": {
+        "branch": "master",
+        "description": "Build rust crates in Nix. No configuration, no code generation. IFD and sandbox friendly.",
+        "homepage": "",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "9a71dbed3c33b2faa57b2fb05ae9cfd563bd6c2c",
+        "sha256": "1bgkmfdkf3vsxk16vfv2j14xb1sk7idswqd8iai5lwqq7lxq3cna",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/naersk/archive/9a71dbed3c33b2faa57b2fb05ae9cfd563bd6c2c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "2ecfd86b631714b457e56d70dd83fa60435baeb6",
+        "sha256": "01j6727cws8blg1npp54b4w6xa0gpgyzhyws2vqgp8clnlnmqqhi",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/2ecfd86b631714b457e56d70dd83fa60435baeb6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixpkgs-unstable",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "cc1ae9f21b9e0ce998e706a3de1bad0b5259f22d",
+        "sha256": "0zjafww05h50ncapw51b5qxgbv9prjyag0j22jnfc3kcs5xr4ap0",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/cc1ae9f21b9e0ce998e706a3de1bad0b5259f22d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-mozilla": {
+        "branch": "master",
+        "description": "mozilla related nixpkgs (extends nixos/nixpkgs repo)",
+        "homepage": null,
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "36455d54de0b40d9432bba6d8207a5582210b3eb",
+        "sha256": "0ll0ws3jpidhrcz70hzq1l46y0bbzm87spw03x4zdpacq0n1yqrn",
+        "type": "tarball",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/36455d54de0b40d9432bba6d8207a5582210b3eb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "olin": {
+        "branch": "master",
+        "description": "Webassembly + Event Sourcing",
+        "homepage": "",
+        "owner": "Xe",
+        "repo": "olin",
+        "rev": "9fc8e7ae8f0d19b9f83983fb65e54daccca420b5",
+        "sha256": "0m7cfc55c7920n402dpwn2zlzvkvacxc3cj682clz5v17m7d15wd",
+        "type": "tarball",
+        "url": "https://github.com/Xe/olin/archive/9fc8e7ae8f0d19b9f83983fb65e54daccca420b5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
