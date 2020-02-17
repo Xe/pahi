@@ -9,5 +9,5 @@ in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 
   # envvars
-  RUST_LOG="debug";
+  RUST_LOG = "info";
 }
