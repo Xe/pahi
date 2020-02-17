@@ -6,11 +6,20 @@ let
     rustc = rust;
     cargo = rust;
   };
-in
-naersk.buildPackage {
-  name = "pahi";
-  src = builtins.filterSource
-    (path: type: type != "directory" || builtins.baseNameOf path != "target")
-    ./.;
-  doCheck = false;
-}
+
+  pahi = naersk.buildPackage {
+    name = "pahi";
+    src = builtins.filterSource
+      (path: type: type != "directory" || builtins.baseNameOf path != "target")
+      ./.;
+  };
+
+  olin = naersk.buildPackage {
+    name = "olin";
+    src = ./wasm;
+
+    buildInputs = [ (import sources.olin { }) ];
+    doCheck = false;
+  };
+
+in { inherit pahi olin; }
