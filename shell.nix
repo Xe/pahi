@@ -4,8 +4,9 @@ let
   pkgs = import sources.nixpkgs { };
   olin = import sources.olin { inherit pkgs; };
   rust = import ./nix/rust.nix { inherit sources; };
+  dhall = import ./nix/dhall.nix;
 in pkgs.mkShell {
-  buildInputs = [ rust niv.niv olin pkgs.wasmer ];
+  buildInputs = [ rust niv.niv olin pkgs.wasmer dhall.dhall-simple ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 
   # envvars
