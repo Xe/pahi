@@ -23,7 +23,7 @@ fn main() -> error::Result<()> {
                 drop(Box::from_raw(data as *mut OlinEnv));
             }
         }
-        let custom_abi_env = Box::new(OlinEnv::new(env!("USER").to_string()));
+        let custom_abi_env = Box::new(OlinEnv::new("olin".to_string()));
         (
             Box::into_raw(custom_abi_env) as *mut c_void,
             destructor as fn(*mut c_void),
