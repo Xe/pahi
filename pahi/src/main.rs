@@ -51,7 +51,9 @@ fn main() -> error::Result<()> {
     let data: &[u8] = &fs::read(filename).expect("wanted file to have data");
     let mut instance = instantiate(data, &import_object)?;
 
-    instance.call("_start", &[])?;
+    if let Err(why) = instance.call("_start", &[]) {
+        error!("runtime error: {}", why);
+    }
 
     let (_, env) = OlinEnv::get_memory_and_environment(instance.context_mut(), 0);
 
