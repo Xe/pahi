@@ -7,4 +7,7 @@ let
 in pkgs.mkShell {
   buildInputs = [ rust niv.niv olin pkgs.wasmer ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
+
+  # envvars
+  RUST_LOG="debug";
 }
