@@ -37,7 +37,18 @@ fn main() -> error::Result<()> {
         "env" => {
             // the func! macro autodetects the signature
             "log_write" => func!(abi::log_write),
+
+            // io
+            "io_get_stderr" => func!(abi::io_get_stderr),
+
+            // resource
+            "resource_write" => func!(abi::resource_write),
+
+            // runtime
+            "runtime_name" => func!(abi::runtime_name),
             "runtime_exit" => func!(abi::runtime_exit),
+            "runtime_spec_major" => func!(abi::runtime_spec_major),
+            "runtime_spec_minor" => func!(abi::runtime_spec_minor),
         },
     };
 
