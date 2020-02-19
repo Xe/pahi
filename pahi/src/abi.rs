@@ -2,7 +2,6 @@ use crate::env::*;
 use log::*;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
-use std::convert::Infallible;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
 
 #[repr(u32)]
@@ -31,13 +30,11 @@ pub fn log_write(ctx: &mut Ctx, level: u32, ptr: WasmPtr<u8, Array>, len: u32) {
 pub fn runtime_exit(
     ctx: &mut Ctx,
     code: u32,
-) -> Result<Infallible, wasmer_runtime::error::RuntimeError> {
+) -> Result<(), ()> {
     let (_, env) = OlinEnv::get_memory_and_environment(ctx, 0);
     env.log_call("runtime_exit".to_string());
-
-    Err(wasmer_runtime::error::RuntimeError::Error {
-        data: Box::new(format!("{}: exiting with {}", env.host_name, code)),
-    })
+    info!("{}: exiting with {}", env.host_name, code);
+    Err(())
 }
 
 const RUNTIME_NAME: &'static str = "pa'i";
@@ -47,7 +44,7 @@ pub fn runtime_name(
     ptr: WasmPtr<u8, Array>,
     len: u32,
 ) -> Result<u32, wasmer_runtime::error::RuntimeError> {
-    let (memory, _) = OlinEnv::get_memory_and_environment(ctx, 0);
+    let (memory, env) = OlinEnv::get_memory_and_environment(ctx, 0);
     if len < RUNTIME_NAME.len() as u32 {
         return Ok(RUNTIME_NAME.len() as u32);
     }
@@ -67,6 +64,7 @@ pub fn runtime_name(
         );
     }
 
+    env.log_call("runtime_name".to_string());
     Ok(RUNTIME_NAME.len() as u32)
 }
 
@@ -85,10 +83,12 @@ pub fn io_get_stderr(_: &mut Ctx) -> u32 {
 }
 
 pub fn resource_write(
-    _: &mut Ctx,
+    ctx: &mut Ctx,
     _fd: u32,
     _base: WasmPtr<u8, Array>,
     len: u32,
 ) -> Result<u32, wasmer_runtime::error::Error> {
+    let (_, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+    env.log_call("resource_write".to_string());
     Ok(len)
 }
