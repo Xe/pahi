@@ -1,4 +1,16 @@
 {
+    "dhall-lang": {
+        "branch": "master",
+        "description": "Maintainable configuration files",
+        "homepage": "https://dhall-lang.org",
+        "owner": "dhall-lang",
+        "repo": "dhall-lang",
+        "rev": "68c8aa875801355a319261c87b547b9a017df3c4",
+        "sha256": "0zs75fpznqn54scxk46p6grh0qvsxb2ygk2qakhrdr3kvbdyicb2",
+        "type": "tarball",
+        "url": "https://github.com/dhall-lang/dhall-lang/archive/68c8aa875801355a319261c87b547b9a017df3c4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "easy-dhall-nix": {
         "branch": "master",
         "description": "Derivations for easily downloading Dhall binaries and putting them to use.",
