@@ -12,6 +12,7 @@ let
     src = builtins.filterSource
       (path: type: type != "directory" || builtins.baseNameOf path != "target")
       ./.;
+    remapPathPrefix = true;
   };
 
   olin = naersk.buildPackage {
@@ -20,6 +21,7 @@ let
 
     buildInputs = [ (import sources.olin { }) ];
     doCheck = false;
+    remapPathPrefix = true;
   };
 
 in { inherit pahi olin; }
