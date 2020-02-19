@@ -1,15 +1,12 @@
-use crate::env::*;
+use crate::*;
 use log::info;
 use std::{thread, time};
 use wasmer_runtime::{Array, Ctx, WasmPtr};
 
-pub fn exit(
-    ctx: &mut Ctx,
-    code: u32,
-) -> Result<(), ()> {
-    let (_, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+pub fn exit(ctx: &mut Ctx, code: u32) -> Result<(), ()> {
+    let (_, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("runtime_exit".to_string());
-    info!("{}: exiting with {}", env.host_name, code);
+    info!("{}: exiting with {}", env.name, code);
     Err(())
 }
 
@@ -20,7 +17,7 @@ pub fn name(
     ptr: WasmPtr<u8, Array>,
     len: u32,
 ) -> Result<u32, wasmer_runtime::error::RuntimeError> {
-    let (memory, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+    let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     if len < NAME.len() as u32 {
         return Ok(NAME.len() as u32);
     }
@@ -34,8 +31,7 @@ pub fn name(
         }
 
         assert_eq!(
-            ptr.get_utf8_string(memory, NAME.len() as u32)
-                .unwrap(),
+            ptr.get_utf8_string(memory, NAME.len() as u32).unwrap(),
             NAME
         );
     }
@@ -48,13 +44,13 @@ pub const CWA_VERSION_MAJOR: u32 = 0;
 pub const CWA_VERSION_MINOR: u32 = 2;
 
 pub fn spec_major(ctx: &mut Ctx) -> u32 {
-    let (_, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+    let (_, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("runtime_spec_major".to_string());
 
     CWA_VERSION_MAJOR
 }
 pub fn spec_minor(ctx: &mut Ctx) -> u32 {
-    let (_, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+    let (_, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("runtime_spec_major".to_string());
 
     CWA_VERSION_MINOR

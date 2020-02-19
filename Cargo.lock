@@ -437,12 +437,19 @@ dependencies = [
  "log",
  "num-derive",
  "num-traits",
+ "pahi-olin",
  "wasmer-runtime",
 ]
 
 [[package]]
 name = "pahi-olin"
 version = "0.1.0"
+dependencies = [
+ "log",
+ "num-derive",
+ "num-traits",
+ "wasmer-runtime",
+]
 
 [[package]]
 name = "parking_lot"

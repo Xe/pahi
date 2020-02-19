@@ -1,4 +1,4 @@
-use crate::env::*;
+use crate::*;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
@@ -12,12 +12,12 @@ pub enum LogLevel {
 }
 
 pub fn write(ctx: &mut Ctx, level: u32, ptr: WasmPtr<u8, Array>, len: u32) {
-    let (memory, env) = OlinEnv::get_memory_and_environment(ctx, 0);
+    let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     let string = ptr.get_utf8_string(memory, len).unwrap();
     match FromPrimitive::from_u32(level) {
-        Some(LogLevel::Info) => println!("{}: info: {}", env.host_name, string),
-        Some(LogLevel::Warning) => println!("{}: warn: {}", env.host_name, string),
-        Some(LogLevel::Error) => println!("{}: error: {}", env.host_name, string),
+        Some(LogLevel::Info) => println!("{}: info: {}", env.name, string),
+        Some(LogLevel::Warning) => println!("{}: warn: {}", env.name, string),
+        Some(LogLevel::Error) => println!("{}: error: {}", env.name, string),
         None => panic!("invalid log level {}", level),
     }
 

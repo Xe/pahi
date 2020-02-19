@@ -12,3 +12,5 @@ log = "0.4"
 env_logger = "0.7.1"
 num-traits = "0.2"
 num-derive = "0.2"
+
+pahi-olin = {path = "../pahi-olin"}
