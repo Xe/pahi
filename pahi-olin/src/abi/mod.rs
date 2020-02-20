@@ -10,6 +10,9 @@ pub mod random;
 /// Runtime interop
 pub mod runtime;
 
+/// Time
+pub mod time;
+
 use crate::Process;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
 

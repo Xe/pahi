@@ -67,6 +67,9 @@ pub fn import_object(name: String) -> ImportObject {
             "runtime_spec_major" => func!(abi::runtime::spec_major),
             "runtime_spec_minor" => func!(abi::runtime::spec_minor),
             "runtime_msleep" => func!(abi::runtime::sleep),
+
+            // time
+            "time_now" => func!(abi::time::now),
         },
     }
 }

@@ -1,6 +1,6 @@
 use crate::*;
 use rand::prelude::*;
-use wasmer_runtime::{Array, Ctx, WasmPtr};
+use wasmer_runtime::Ctx;
 
 pub fn rand_i32(ctx: &mut Ctx) -> Result<i32, ()> {
     let (_, env) = Process::get_memory_and_environment(ctx, 0);

@@ -15,6 +15,7 @@ pkgs.stdenv.mkDerivation rec {
     (cd $src/ns && dhall text < log.dhall > $buildDir/ns/log.md)
     (cd $src/ns && dhall text < random.dhall > $buildDir/ns/random.md)
     (cd $src/ns && dhall text < runtime.dhall > $buildDir/ns/runtime.md)
+    (cd $src/ns && dhall text < time.dhall > $buildDir/ns/time.md)
   '';
 
   installPhase = ''
