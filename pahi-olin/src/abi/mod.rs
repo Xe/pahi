@@ -1,3 +1,5 @@
+/// The Olin ABI implemented for pa'i. This mostly contains rigging and other
+/// internal implementation details.
 pub mod log;
 pub mod runtime;
 

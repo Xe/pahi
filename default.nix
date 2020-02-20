@@ -11,9 +11,7 @@ let
     (path: type: type != "directory" || builtins.baseNameOf path != "target")
     ./.;
 
-  pahi = naersk.buildPackage {
-    inherit name src;
-  };
+  pahi = naersk.buildPackage { inherit name src; };
 
   olin = naersk.buildPackage {
     name = "olin";
@@ -26,25 +24,25 @@ let
   olin-spec = import ./docs/olin-spec { inherit pkgs sources; };
   docs = import ./docs { inherit pkgs sources; };
 
-in with pkgs;
-stdenv.mkDerivation {
-  version = "latest";
-  phases = "installPhase";
-  inherit name src;
+  composite = pkgs.stdenv.mkDerivation {
+    version = "latest";
+    phases = "installPhase";
+    inherit name src;
 
-  installPhase = ''
-    mkdir -p $out/docs/olin-spec
-    cp -rf ${docs}/docs $out
-    cp -rf ${olin-spec}/docs $out
-    cp -rf ${pahi}/bin $out/bin
-    mkdir -p $out/wasm
+    installPhase = ''
+      mkdir -p $out/docs/olin-spec
+      cp -rf ${docs}/docs $out
+      cp -rf ${olin-spec}/docs $out
+      cp -rf ${pahi}/bin $out/bin
+      mkdir -p $out/wasm
 
-    for f in ${olin}/bin/*
-    do
-      cp "$f" "$out/wasm/$(basename $f)".wasm
-    done
+      for f in ${olin}/bin/*
+      do
+        cp "$f" "$out/wasm/$(basename $f)".wasm
+      done
 
-    cp $src/README.md $out/README.md
-    cp $src/LICENSE $out/LICENSE
-  '';
-}
+      cp $src/README.md $out/README.md
+      cp $src/LICENSE $out/LICENSE
+    '';
+  };
+in composite

@@ -28,17 +28,6 @@ impl Process {
     }
 }
 
-#[derive(Clone)]
-pub struct EnvGenerator(*mut std::ffi::c_void, fn(*mut std::ffi::c_void));
-unsafe impl Send for EnvGenerator {}
-unsafe impl Sync for EnvGenerator {}
-impl From<EnvGenerator> for (*mut std::ffi::c_void, fn(*mut std::ffi::c_void)) {
-    fn from(env_generator: EnvGenerator) -> (*mut std::ffi::c_void, fn(*mut std::ffi::c_void)) {
-        let EnvGenerator(a, b) = env_generator;
-        (a, b)
-    }
-}
-
 pub fn import_object(name: String) -> ImportObject {
     let env_generator = move || {
         let my_name = name.clone();

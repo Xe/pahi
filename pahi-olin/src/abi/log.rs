@@ -3,6 +3,8 @@ use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
 
+/// The log levels used by CommonWA. See the log namespace documentation for
+/// more information.
 #[repr(u32)]
 #[derive(Debug, FromPrimitive)]
 pub enum LogLevel {
