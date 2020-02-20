@@ -10,11 +10,13 @@ let utils = ../types/utils.dhall
 
 let show = ../types/renderNSToMD.dhall
 
+let showWasmType = ../types/showWasmType.dhall
+
 let rand_for
     : type.Type → func.Type
     =   λ(typ : type.Type)
       → func::{
-        , name = "${typ.name}"
+        , name = "${showWasmType typ.lowersTo}"
         , params = [] : List type.Type
         , return = typ
         , errors = [] : List err.Type

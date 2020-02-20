@@ -2,7 +2,7 @@
 
 Non-cryptographic randomness, but it's fed with cryptographic randomness anyways.
 
-## result
+## i32
 
 **Parameters:**
 
@@ -22,7 +22,7 @@ A sufficiently random result value is returned.
 
 None
 
-## result
+## u32
 
 **Parameters:**
 
@@ -42,7 +42,7 @@ A sufficiently random result value is returned.
 
 None
 
-## result
+## i64
 
 **Parameters:**
 
@@ -62,7 +62,7 @@ A sufficiently random result value is returned.
 
 None
 
-## result
+## u64
 
 **Parameters:**
 
