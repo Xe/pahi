@@ -4,11 +4,7 @@ on:
   push:
 jobs:
   test:
-    name: "Nix builds on ${{ matrix.os }}"
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: cachix/install-nix-action@v6
