@@ -8,7 +8,9 @@ Control and obtain information about the runtime environment.
 
 - `status`: i32 (int)
 
-**Returns:** - `void`: void (void)
+**Returns:**
+
+- `void`: void (void)
 
 **Effects:** Stops VM execution.
 
@@ -26,7 +28,9 @@ None
 
 - `ms`: u32 (unsigned int)
 
-**Returns:** - `void`: void (void)
+**Returns:**
+
+- `void`: void (void)
 
 **Effects:** Sleeps for the given ms milliseconds.
 
@@ -45,7 +49,9 @@ None
 - `out_base (mut)`: u32 (int *)
 - `out_len (mut)`: u32 (size_t)
 
-**Returns:** - `len`: i32 (int)
+**Returns:**
+
+- `len`: i32 (int)
 
 **Effects:** None.
 
@@ -65,7 +71,9 @@ None
 
 None
 
-**Returns:** - `spec_major_version`: u32 (unsigned int)
+**Returns:**
+
+- `spec_major_version`: u32 (unsigned int)
 
 **Effects:** None.
 
@@ -85,7 +93,9 @@ None
 
 None
 
-**Returns:** - `spec_minor_version`: u32 (unsigned int)
+**Returns:**
+
+- `spec_minor_version`: u32 (unsigned int)
 
 **Effects:** None.
 

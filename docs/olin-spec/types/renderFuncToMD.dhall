@@ -36,7 +36,9 @@ let render
 
             ${paramList}
 
-            **Returns:** ${showType fn.return}
+            **Returns:**
+
+            ${showType fn.return}
 
             **Effects:** ${fn.effects}
 

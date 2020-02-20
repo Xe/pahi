@@ -10,7 +10,9 @@ Logging facilities for applications
 - `text_base`: u32 (int *)
 - `text_len`: u32 (size_t)
 
-**Returns:** - `void`: void (void)
+**Returns:**
+
+- `void`: void (void)
 
 **Effects:** Writes text (the memory range from text_base to text_base + text_len) to the environment-provided logger.
 
