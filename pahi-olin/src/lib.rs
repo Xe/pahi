@@ -1,7 +1,7 @@
 use std::ffi::c_void;
 use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 
-mod abi;
+pub mod abi;
 pub mod error;
 
 /// Process is an individual CommonWA process. It is the collection of resources
@@ -51,6 +51,12 @@ pub fn import_object(name: String) -> ImportObject {
 
             // log
             "log_write" => func!(abi::log::write),
+
+            // random
+            "random_i32" => func!(abi::random::rand_i32),
+            "random_u32" => func!(abi::random::rand_u32),
+            "random_i64" => func!(abi::random::rand_i64),
+            "random_u64" => func!(abi::random::rand_u64),
 
             // resource
             "resource_write" => func!(abi::resource_write),

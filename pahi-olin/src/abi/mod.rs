@@ -1,6 +1,13 @@
 /// The Olin ABI implemented for pa'i. This mostly contains rigging and other
 /// internal implementation details.
+
+/// Logging support
 pub mod log;
+
+/// Simple entropy
+pub mod random;
+
+/// Runtime interop
 pub mod runtime;
 
 use crate::Process;

@@ -6,8 +6,6 @@ let type = ../types/type.dhall
 
 let err = ../types/error.dhall
 
-let wasmTypes = ../types/wasmtypes.dhall
-
 let utils = ../types/utils.dhall
 
 let show = ../types/renderNSToMD.dhall
