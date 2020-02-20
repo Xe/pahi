@@ -10,6 +10,8 @@ let wasmTypes = ../types/wasmtypes.dhall
 
 let utils = ../types/utils.dhall
 
+let show = ../types/renderNSToMD.dhall
+
 let write =
       func::{
       , name = "write"
@@ -30,12 +32,12 @@ let write =
 
           The text must be valid UTF-8, otherwise the behavior is implementation-defined.
 
-          This function MUST always succeed.
-          ''
+          This function MUST always succeed.''
       }
 
-in  ns::{
-    , name = "log"
-    , desc = "Logging facilities for applications"
-    , funcs = [ write ]
-    }
+in  show
+      ns::{
+      , name = "log"
+      , desc = "Logging facilities for applications"
+      , funcs = [ write ]
+      }

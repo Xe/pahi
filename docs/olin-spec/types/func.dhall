@@ -4,6 +4,8 @@ let err = ./error.dhall
 
 let wasmTypes = ./wasmtypes.dhall
 
+let utils = ./utils.dhall
+
 in  { Type =
         { name : Text
         , desc : Text
@@ -14,11 +16,8 @@ in  { Type =
         }
     , default =
         { params = [] : List type.Type
-        , return = type::{
-          , name = "none"
-          , cRepr = "void"
-          , lowersTo = wasmTypes.void
-          }
+        , return = utils.void
         , errors = [] : List err.Type
+        , effects = "None."
         }
     }
