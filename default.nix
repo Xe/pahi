@@ -12,12 +12,13 @@ let
     ./.;
 
   pahi = naersk.buildPackage { inherit name src; };
+  olin-cwa = import sources.olin { };
 
   olin = naersk.buildPackage {
     name = "olin";
     src = ./wasm;
 
-    buildInputs = [ (import sources.olin { }) ];
+    buildInputs = [ olin-cwa ];
     doCheck = false;
   };
 
@@ -33,7 +34,9 @@ let
       mkdir -p $out/docs/olin-spec
       cp -rf ${docs}/docs $out
       cp -rf ${olin-spec}/docs $out
-      cp -rf ${pahi}/bin $out/bin
+      mkdir -p $out/bin
+      cp -rf ${olin-cwa}/bin/cwa $out/bin
+      cp -rf ${pahi}/bin/pahi $out/bin
       mkdir -p $out/wasm
 
       for f in ${olin}/bin/*
