@@ -16,3 +16,5 @@ jobs:
     - run: |
         rm result
         nix-build docker.nix
+        docker load -i result
+        docker run --rm -it xena/pahi:latest /bin/testrunner
