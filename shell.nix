@@ -7,7 +7,7 @@ let
   dhall = import ./nix/dhall.nix;
 in pkgs.mkShell {
   buildInputs =
-    [ rust niv.niv olin pkgs.wasmer dhall.dhall-simple sources.dhall-lang ];
+    [ rust niv.niv olin dhall.dhall-simple sources.dhall-lang pkgs.go ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 
   # envvars

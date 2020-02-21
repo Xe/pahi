@@ -39,7 +39,7 @@ fn main() -> Result<(), std::io::Error> {
             Err(e) => {
                 olin::log::error(&format!("test error: {:?}", e));
                 fail_count += 1;
-            },
+            }
         }
     }
 

@@ -8,7 +8,7 @@ use std::io::{Read, Write};
 pub extern "C" fn test() -> Result<(), i32> {
     log::info("running scheme::http tests");
 
-    let reqd = "GET /404 HTTP/1.1\r\nHost: printerfacts.herokuapp.com\r\nUser-Agent: Bit-banging it in rust\r\n\r\n";
+    let reqd = "GET /404 HTTP/1.1\r\nHost: xena.greedo.xeserv.us\r\nUser-Agent: Bit-banging it in rust\r\n\r\n";
     let mut headers = [httparse::EMPTY_HEADER; 16];
     let mut req = httparse::Request::new(&mut headers);
     log::info("validating HTTP request");
@@ -17,8 +17,8 @@ pub extern "C" fn test() -> Result<(), i32> {
         1
     });
 
-    log::info("opening https://printerfacts.herokuapp.com");
-    let mut fout: Resource = Resource::open("https://printerfacts.herokuapp.com").map_err(|e| {
+    log::info("opening https://xena.greedo.xeserv.us");
+    let mut fout: Resource = Resource::open("https://xena.greedo.xeserv.us").map_err(|e| {
         log::error(&format!("couldn't open: {:?}", e));
         1
     })?;

@@ -2,6 +2,7 @@
 let
   rust = import ./nix/rust.nix { inherit sources; };
   pkgs = import sources.nixpkgs { };
+  dhall = import ./nix/dhall.nix { inherit sources pkgs; };
   naersk = pkgs.callPackage sources.naersk {
     rustc = rust;
     cargo = rust;
@@ -24,6 +25,7 @@ let
 
   olin-spec = import ./docs/olin-spec { inherit pkgs sources; };
   docs = import ./docs { inherit pkgs sources; };
+  pahi-testrunner = import ./tests { inherit pkgs sources; };
 
   composite = pkgs.stdenv.mkDerivation {
     version = "latest";
@@ -43,6 +45,10 @@ let
       do
         cp "$f" "$out/wasm/$(basename $f)".wasm
       done
+
+      cp -rf ${pahi-testrunner}/bin/tests $out/bin/testrunner
+      mkdir -p $out/tests
+      cp -rf $src/tests/testdata.dhall $out/tests/testdata.dhall
 
       cp $src/README.md $out/README.md
       cp $src/LICENSE $out/LICENSE
