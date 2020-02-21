@@ -2,12 +2,21 @@ let type = ./type.dhall
 
 let wasmTypes = ./wasmtypes.dhall
 
+let ptr
+    : Text → type.Type
+    =   λ(name : Text)
+      → type::{
+        , name = name
+        , cRepr = "unsigned int *"
+        , lowersTo = wasmTypes.u32
+        }
+
 let mut_string
     : Text → List type.Type
     =   λ(name : Text)
       → [ type::{
           , name = "${name}_base (mut)"
-          , cRepr = "int *"
+          , cRepr = "unsigned int *"
           , lowersTo = wasmTypes.u32
           }
         , type::{
@@ -22,7 +31,7 @@ let string
     =   λ(name : Text)
       → [ type::{
           , name = "${name}_base"
-          , cRepr = "int *"
+          , cRepr = "unsigned int *"
           , lowersTo = wasmTypes.u32
           }
         , type::{
@@ -61,4 +70,5 @@ in  { mut_string = mut_string
     , void = void
     , i64 = i64
     , u64 = u64
+    , ptr = ptr
     }

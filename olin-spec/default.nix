@@ -10,6 +10,7 @@ pkgs.stdenv.mkDerivation rec {
 
   buildPhase = ''
     buildDir=$(pwd)
+    (cd $src && dhall text < $src/renderTypesToMD.dhall) > types.md
     (cd $src/errors && dhall text < renderErrorMD.dhall) > errors.md
     mkdir ns
     (cd $src/ns && dhall text < log.dhall > $buildDir/ns/log.md)
@@ -20,8 +21,8 @@ pkgs.stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/docs/olin-spec
-    cp -rf $src/README.md $out/docs/olin-spec/README.md
-    cp -rf errors.md $out/docs/olin-spec/errors.md
+    cp -rf $src/*.md $out/docs/olin-spec/
+    cp -rf *.md $out/docs/olin-spec/
     cp -rf ns $out/docs/olin-spec/
   '';
 }
