@@ -1,5 +1,5 @@
-{ sources ? import ../../nix/sources.nix, pkgs ? import sources.nixpkgs { }
-, dhall-lang ? sources.dhall-lang, dhall ? import ../../nix/dhall.nix }:
+{ sources ? import ../nix/sources.nix, pkgs ? import sources.nixpkgs { }
+, dhall-lang ? sources.dhall-lang, dhall ? import ../nix/dhall.nix }:
 pkgs.stdenv.mkDerivation rec {
   name = "olin-spec";
   version = "latest";

@@ -23,7 +23,7 @@ let
     doCheck = false;
   };
 
-  olin-spec = import ./docs/olin-spec { inherit pkgs sources; };
+  olin-spec = import ./olin-spec { inherit pkgs sources; };
   docs = import ./docs { inherit pkgs sources; };
   pahi-testrunner = import ./tests { inherit pkgs sources; };
 
