@@ -12,7 +12,7 @@ let
     ./.;
 
   pahi = naersk.buildPackage { inherit name src; };
-  olin-cwa = import sources.olin { };
+  olin-cwa = import sources.olin { inherit pkgs; };
 
   olin = naersk.buildPackage {
     name = "olin";
