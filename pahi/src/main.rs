@@ -2,29 +2,51 @@ extern crate wasmer_runtime;
 
 use pahi_olin::*;
 use std::fs;
-use wasmer_runtime::{error, instantiate};
+use structopt::StructOpt;
+use wasmer_runtime::instantiate;
 
 #[macro_use]
 extern crate log;
 
-fn main() -> error::Result<()> {
+#[derive(Debug, StructOpt)]
+#[structopt(
+    name = "pa'i",
+    about = "A WebAssembly runtime in Rust meeting the Olin ABI."
+)]
+struct Opt {
+    /// Backend
+    #[structopt(short, long, default_value = "cranelift")]
+    backend: String,
+
+    /// Binary to run
+    #[structopt()]
+    fname: String,
+
+    /// Arguments of the wasm child
+    #[structopt()]
+    args: Vec<String>,
+}
+
+fn main() -> Result<(), String> {
+    let opt = Opt::from_args();
     env_logger::init();
     info!("la pa'i is starting...");
-    let mut args: Vec<String> = std::env::args().collect();
-    debug!("args: {:?}", args);
+    debug!("args: {:?}", opt.args);
 
-    if args.len() < 2 {
-        panic!("wanted args.len() < 2, got: {}: {:?}", args.len(), args);
+    if opt.backend != "cranelift" {
+        return Err(format!(
+            "wanted backend to be cranelift, got: {}",
+            opt.backend
+        ));
     }
 
-    args.remove(0); // ignore the binary name
-    let filename = args[0].clone();
-    let imports = import_object("olin".to_string(), args);
+    let filename = opt.fname.clone();
+    let imports = import_object(opt.fname, opt.args);
 
     debug!("opening {}", filename);
 
     let data: &[u8] = &fs::read(&filename).expect("wanted file to have data");
-    let mut instance = instantiate(data, &imports)?;
+    let mut instance = instantiate(data, &imports).expect("wanted imports to work");
     let result = instance
         .func::<(), ()>("_start")
         .expect("_start not found")
