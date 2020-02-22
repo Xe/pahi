@@ -2,5 +2,6 @@
 members = [
   "cwagi",
   "olin",
-  "olin-tests"
+  "olin-tests",
+  "snappy-example"
 ]
