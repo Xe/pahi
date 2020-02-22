@@ -40,8 +40,14 @@ fn main() -> Result<(), String> {
         ));
     }
 
+    let mut args: Vec<String> = vec![];
+    args.push(opt.fname.clone());
+    for arg in &opt.args {
+        args.push(arg.to_string());
+    }
+
     let filename = opt.fname.clone();
-    let imports = import_object(opt.fname, opt.args);
+    let imports = import_object(opt.fname, args);
 
     debug!("opening {}", filename);
 
