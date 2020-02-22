@@ -46,8 +46,6 @@ let
         cp "$f" "$out/wasm/$(basename $f)".wasm
       done
 
-      cp -rf ${olin-cwa}/wasm/zig $out/wasm/zig
-
       cp -rf ${pahi-testrunner}/bin/tests $out/bin/testrunner
       mkdir -p $out/tests
       cp -rf ${pahi-testrunner}/tests/testdata.dhall $out/tests/testdata.dhall
