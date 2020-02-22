@@ -20,6 +20,10 @@ path = "src/bin/olinfetch.rs"
 name = "allyourlogs"
 path = "src/bin/allyourlogs.rs"
 
+[[bin]]
+name = "allyourargs"
+path = "src/bin/allyourargs.rs"
+
 [dependencies]
 chrono = "0.4"
 http = "0.1"

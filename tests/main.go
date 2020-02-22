@@ -58,7 +58,7 @@ func main() {
 		errBuf := bytes.NewBuffer(nil)
 		inBuf := bytes.NewBuffer([]byte("hahaha it's is an laughter image"))
 
-		cmd := exec.Command(which(cs.Interpreter), filepath.Join(*pathToWasmFiles, cs.Fname))
+		cmd := exec.Command(which(cs.Interpreter), filepath.Join(*pathToWasmFiles, cs.Fname), "arg1", "arg2")
 		cmd.Stdout = outBuf
 		cmd.Stderr = errBuf
 		cmd.Stdin = inBuf

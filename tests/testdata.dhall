@@ -14,6 +14,16 @@ in  { cases =
       , test::{
         , interpreter = inter.cwa
         , exitsWith = 0
+        , fname = "allyourargs.wasm"
+        }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
+        , fname = "allyourargs.wasm"
+        }
+      , test::{
+        , interpreter = inter.cwa
+        , exitsWith = 0
         , fname = "allyourlogs.wasm"
         }
       , test::{ interpreter = inter.cwa, exitsWith = 0, fname = "shaman.wasm" }

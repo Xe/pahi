@@ -10,6 +10,9 @@ pub mod random;
 /// Runtime interop
 pub mod runtime;
 
+/// Startup/cli args
+pub mod startup;
+
 /// Time
 pub mod time;
 

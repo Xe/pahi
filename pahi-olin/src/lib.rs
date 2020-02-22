@@ -8,13 +8,15 @@ pub mod error;
 /// and other macguffins that the child module ends up requiring.
 pub struct Process {
     pub name: String,
+    pub args: Vec<String>,
     pub called_functions: Vec<String>,
 }
 
 impl Process {
-    pub fn new(host_name: String) -> Self {
+    pub fn new(host_name: String, args: Vec<String>) -> Self {
         Process {
             name: host_name,
+            args: args,
             called_functions: vec![],
         }
     }
@@ -28,7 +30,7 @@ impl Process {
     }
 }
 
-pub fn import_object(name: String) -> ImportObject {
+pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
     let env_generator = move || {
         let my_name = name.clone();
         fn destructor(data: *mut c_void) {
@@ -36,7 +38,7 @@ pub fn import_object(name: String) -> ImportObject {
                 drop(Box::from_raw(data as *mut Process));
             }
         }
-        let custom_abi_env = Box::new(Process::new(my_name));
+        let custom_abi_env = Box::new(Process::new(my_name, args.clone()));
         (
             Box::into_raw(custom_abi_env) as *mut c_void,
             destructor as fn(*mut c_void),
@@ -67,6 +69,10 @@ pub fn import_object(name: String) -> ImportObject {
             "runtime_spec_major" => func!(abi::runtime::spec_major),
             "runtime_spec_minor" => func!(abi::runtime::spec_minor),
             "runtime_msleep" => func!(abi::runtime::sleep),
+
+            // startup
+            "startup_arg_len" => func!(abi::startup::arg_len),
+            "startup_arg_at" => func!(abi::startup::arg_at),
 
             // time
             "time_now" => func!(abi::time::now),
