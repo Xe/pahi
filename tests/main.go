@@ -40,16 +40,23 @@ func main() {
 
 	flag.Parse()
 
-	cmd := exec.Command(*dhallToJSONPath, "--file", *testDataFname)
+	log.Printf("%s", *dhallToJSONPath)
+	fin, err := os.Open(*testDataFname)
+	if err != nil /* fundamental assertion error */ {
+		log.Fatalf("can't open %s: %v", *testDataFname, err)
+	}
+
+	cmd := exec.Command(*dhallToJSONPath)
+	cmd.Stdin = fin
 	outp, err := cmd.Output()
 	if err != nil /* fundamental assertion error */ {
-		log.Fatal(err)
+		log.Fatalf("dhall-to-json: %v", err)
 	}
 
 	var suite TestSuite
 	err = json.Unmarshal(outp, &suite)
 	if err != nil /* fundamental assertion error */ {
-		log.Fatal(err)
+		log.Fatalf("json unmarshal failure: %v", err)
 	}
 
 	for i, cs := range suite.Cases {
@@ -68,15 +75,13 @@ func main() {
 		err := cmd.Run()
 
 		if err != nil {
-			failed = true
+			if cmd.ProcessState.ExitCode() != cs.ExitsWith {
+				failed = true
+				fmt.Printf("wanted exit code %d, got: %d\n", cs.ExitsWith, cmd.ProcessState.ExitCode())
+			}
 			fmt.Printf("%s running %s\n", cs.Interpreter, cs.Fname)
 			fmt.Printf("Stdout: \n%s\n", outBuf.String())
 			fmt.Printf("Stderr: \n%s\n", errBuf.String())
-		}
-
-		if cmd.ProcessState.Exited() && cmd.ProcessState.ExitCode() != cs.ExitsWith {
-			failed = true
-			fmt.Printf("wanted exit code %d, got: %d\n", cs.ExitsWith, cmd.ProcessState.ExitCode())
 		}
 
 		msg := "OK"
