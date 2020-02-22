@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "Xe",
         "repo": "olin",
-        "rev": "d169d85514875f8a500683adaeb13c5c53b42e56",
-        "sha256": "1xsh7ww01ylka393bf1x6yg13v14i32yw6032g49kdg9kqya9045",
+        "rev": "f32f6779f1a0dc822d09801f14b8264667bb18eb",
+        "sha256": "12cx690wgwhxmbi1gcdk7bjzm2dpnv1kxqddvm3v87iwilm88108",
         "type": "tarball",
-        "url": "https://github.com/Xe/olin/archive/d169d85514875f8a500683adaeb13c5c53b42e56.tar.gz",
+        "url": "https://github.com/Xe/olin/archive/f32f6779f1a0dc822d09801f14b8264667bb18eb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
