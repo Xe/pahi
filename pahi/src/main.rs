@@ -22,6 +22,10 @@ struct Opt {
     #[structopt()]
     fname: String,
 
+    /// Main function
+    #[structopt(short, long, default_value = "_start")]
+    entrypoint: String,
+
     /// Arguments of the wasm child
     #[structopt()]
     args: Vec<String>,
@@ -54,7 +58,7 @@ fn main() -> Result<(), String> {
     let data: &[u8] = &fs::read(&filename).expect("wanted file to have data");
     let mut instance = instantiate(data, &imports).expect("wanted imports to work");
     let result = instance
-        .func::<(), ()>("_start")
+        .func::<(), ()>(&opt.entrypoint)
         .expect("_start not found")
         .call();
 

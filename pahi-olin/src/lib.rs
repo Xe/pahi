@@ -47,6 +47,36 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
 
     imports! {
         env_generator,
+        "cwa" => {
+            // io
+            "io_get_stderr" => func!(abi::io_get_stderr),
+
+            // log
+            "log_write" => func!(abi::log::write),
+
+            // random
+            "random_i32" => func!(abi::random::rand_i32),
+            "random_u32" => func!(abi::random::rand_u32),
+            "random_i64" => func!(abi::random::rand_i64),
+            "random_u64" => func!(abi::random::rand_u64),
+
+            // resource
+            "resource_write" => func!(abi::resource_write),
+
+            // runtime
+            "runtime_name" => func!(abi::runtime::name),
+            "runtime_exit" => func!(abi::runtime::exit),
+            "runtime_spec_major" => func!(abi::runtime::spec_major),
+            "runtime_spec_minor" => func!(abi::runtime::spec_minor),
+            "runtime_msleep" => func!(abi::runtime::sleep),
+
+            // startup
+            "startup_arg_len" => func!(abi::startup::arg_len),
+            "startup_arg_at" => func!(abi::startup::arg_at),
+
+            // time
+            "time_now" => func!(abi::time::now),
+        },
         "env" => {
             // io
             "io_get_stderr" => func!(abi::io_get_stderr),
