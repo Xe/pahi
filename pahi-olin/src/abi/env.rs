@@ -10,6 +10,7 @@ pub fn get(
 ) -> Result<i32, std::option::NoneError> {
     let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     let key = key_ptr.get_utf8_string(memory, key_len)?;
+    env.log_call("env_get".to_string());
 
     match env.envvars.get(key) {
         Some(value) => {

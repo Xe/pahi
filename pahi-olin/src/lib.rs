@@ -99,7 +99,11 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
             "random_u64" => func!(abi::random::rand_u64),
 
             // resource
-            "resource_write" => func!(abi::resource_write),
+            "resource_open" => func!(abi::resource::open),
+            "resource_close" => func!(abi::resource::close),
+            "resource_read" => func!(abi::resource::read),
+            "resource_write" => func!(abi::resource::write),
+            "resource_flush" => func!(abi::resource::flush),
 
             // runtime
             "runtime_name" => func!(abi::runtime::name),
@@ -134,7 +138,11 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
             "random_u64" => func!(abi::random::rand_u64),
 
             // resource
-            "resource_write" => func!(abi::resource_write),
+            "resource_open" => func!(abi::resource::open),
+            "resource_close" => func!(abi::resource::close),
+            "resource_read" => func!(abi::resource::read),
+            "resource_write" => func!(abi::resource::write),
+            "resource_flush" => func!(abi::resource::flush),
 
             // runtime
             "runtime_name" => func!(abi::runtime::name),
