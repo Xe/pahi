@@ -19,13 +19,18 @@ pub extern "C" fn test() -> Result<(), i32> {
             1
         })?;
 
-    let resp = olin::http::client::transport(req, &mut resp_body).map_err(|e| {
-        log::error(&format!("transport error: {:?}", e));
-        1
-    })?;
+    let resp =
+        olin::http::client::transport("bsnk.minipaas.xeserv.us".to_string(), req, &mut resp_body)
+            .map_err(|e| {
+            log::error(&format!("transport error: {:?}", e));
+            1
+        })?;
 
     log::info(&format!("status: {:?}", resp.status()));
-    log::info(&format!("response body: {}", std::str::from_utf8(&resp_body).unwrap()));
+    log::info(&format!(
+        "response body: {}",
+        std::str::from_utf8(&resp_body).unwrap()
+    ));
 
     log::info("olintest::http tests passed");
     Ok(())

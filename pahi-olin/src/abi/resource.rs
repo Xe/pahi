@@ -13,12 +13,12 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
     let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("resource_open".to_string());
     let violations = RefCell::new(Vec::new());
+    let raw_uri = ptr
+        .get_utf8_string(memory, len)
+        .ok_or(error::Error::InvalidArgument)?;
     let uri = Url::options()
         .syntax_violation_callback(Some(&|v| violations.borrow_mut().push(v)))
-        .parse(
-            ptr.get_utf8_string(memory, len)
-                .ok_or(error::Error::InvalidArgument)?,
-        );
+        .parse(&raw_uri);
 
     match uri {
         Ok(uri) => {
@@ -44,7 +44,7 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
             };
         }
         Err(why) => {
-            log::error!("URL parsing error: {:?}", why);
+            log::error!("URL parsing error {}: {:?}", &raw_uri, why);
             Ok(error::Error::Unknown as i32)
         }
     }

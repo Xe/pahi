@@ -18,7 +18,11 @@ pub extern "C" fn test() -> Result<(), i32> {
     }
     log::info("passed");
 
-    log::info("getting runtime name, should be olin");
+    log::info("sleeping");
+    runtime::msleep(1);
+    log::info("passed");
+
+    log::info("getting runtime name, should be olin or pa'i");
     let mut rt_name = [0u8; 32];
     let runtime_name = runtime::name_buf(rt_name.as_mut()).ok_or_else(|| {
         log::error("Runtime name larger than 32 byte limit");
@@ -27,16 +31,20 @@ pub extern "C" fn test() -> Result<(), i32> {
 
     log::info(runtime_name);
 
-    if runtime_name != "olin" {
-        log::error("Got runtime name, not olin");
-        return Err(1);
+    match runtime_name.to_string().as_str() {
+        "olin" => {
+            log::info("passed");
+            log::info("ns::runtime tests passed");
+            Ok(())
+        }
+        "pa'i" => {
+            log::info("passed");
+            log::info("ns::runtime tests passed");
+            Ok(())
+        }
+        _ => {
+            log::error("Got runtime name, not olin or pa'i");
+            return Err(1);
+        }
     }
-    log::info("passed");
-
-    log::info("sleeping");
-    runtime::msleep(1);
-    log::info("passed");
-
-    log::info("ns::runtime tests passed");
-    Ok(())
 }

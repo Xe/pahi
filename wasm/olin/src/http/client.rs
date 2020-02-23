@@ -7,13 +7,15 @@ use std::string::String;
 use std::vec::Vec;
 
 pub fn transport<'a>(
+    host: String,
     req: http::Request<&'a mut Vec<u8>>,
     _resp_body: &'a mut Vec<u8>,
-) -> Result<(http::Response<()>), io::Error> {
-    let mut fout: crate::Resource = crate::Resource::open("https://").map_err(|e| {
-        crate::log::error(&format!("http: couldn't open {:?}", e));
-        io::Error::new(ErrorKind::Other, crate::err::Error::Unknown)
-    })?;
+) -> Result<http::Response<()>, io::Error> {
+    let mut fout: crate::Resource = crate::Resource::open(format!("https://{}", host).as_str())
+        .map_err(|e| {
+            crate::log::error(&format!("http: couldn't open {:?}", e));
+            io::Error::new(ErrorKind::Other, crate::err::Error::Unknown)
+        })?;
 
     let req = serialize_req(req);
 
