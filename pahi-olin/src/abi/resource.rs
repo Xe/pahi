@@ -1,4 +1,8 @@
-use crate::{resource::Resource, scheme::log::Log, *};
+use crate::{
+    resource::Resource,
+    scheme::{log::Log, null::Null},
+    *,
+};
 use log::debug;
 use std::io::{Read, Write};
 use url::Url;
@@ -18,6 +22,10 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
             return match uri.scheme() {
                 "log" => {
                     env.resources.insert(fd, Box::new(Log::new(uri)));
+                    Ok(fd as i32)
+                }
+                "null" => {
+                    env.resources.insert(fd, Box::new(Null::new(uri)));
                     Ok(fd as i32)
                 }
                 _ => Ok(error::Error::NotFound as i32),
