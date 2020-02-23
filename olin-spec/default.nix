@@ -14,6 +14,7 @@ pkgs.stdenv.mkDerivation rec {
     (cd $src/errors && dhall text < renderErrorMD.dhall) > errors.md
     mkdir ns
     (cd $src/ns && dhall text < env.dhall > $buildDir/ns/env.md)
+    (cd $src/ns && dhall text < io.dhall > $buildDir/ns/io.md)
     (cd $src/ns && dhall text < log.dhall > $buildDir/ns/log.md)
     (cd $src/ns && dhall text < random.dhall > $buildDir/ns/random.md)
     (cd $src/ns && dhall text < runtime.dhall > $buildDir/ns/runtime.md)

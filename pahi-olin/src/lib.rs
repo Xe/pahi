@@ -1,5 +1,6 @@
 #![feature(try_trait)]
 
+use rand::prelude::*;
 use std::collections::{BTreeMap, HashMap};
 use std::env;
 use std::ffi::c_void;
@@ -22,7 +23,7 @@ pub struct Process {
     pub args: Vec<String>,
     pub called_functions: Vec<String>,
     pub envvars: BTreeMap<String, String>,
-    pub resources: HashMap<u32, Box<dyn resource::Resource>>,
+    pub resources: Box<HashMap<u32, Box<dyn resource::Resource>>>,
 }
 
 impl Process {
@@ -38,7 +39,7 @@ impl Process {
             args: args,
             called_functions: vec![],
             envvars: envvars,
-            resources: HashMap::new(),
+            resources: Box::new(HashMap::new()),
         }
     }
 
@@ -48,6 +49,17 @@ impl Process {
 
     pub fn get_memory_and_environment(ctx: &mut Ctx, mem_index: u32) -> (&Memory, &mut Process) {
         unsafe { ctx.memory_and_data_mut(mem_index) }
+    }
+
+    pub fn get_fd(&self) -> u32 {
+        let mut rng = thread_rng();
+        let mut result = rng.next_u32();
+
+        while self.resources.contains_key(&result) {
+            result = rng.next_u32();
+        }
+
+        result
     }
 }
 
@@ -73,7 +85,9 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
             "env_get" => func!(abi::env::get),
 
             // io
-            "io_get_stderr" => func!(abi::io_get_stderr),
+            "io_get_stderr" => func!(abi::io::stderr),
+            "io_get_stdout" => func!(abi::io::stdout),
+            "io_get_stdin" => func!(abi::io::stdin),
 
             // log
             "log_write" => func!(abi::log::write),
@@ -106,7 +120,9 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
             "env_get" => func!(abi::env::get),
 
             // io
-            "io_get_stderr" => func!(abi::io_get_stderr),
+            "io_get_stderr" => func!(abi::io::stderr),
+            "io_get_stdout" => func!(abi::io::stdout),
+            "io_get_stdin" => func!(abi::io::stdin),
 
             // log
             "log_write" => func!(abi::log::write),

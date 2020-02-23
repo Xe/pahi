@@ -4,6 +4,9 @@
 /// Environment variables
 pub mod env;
 
+/// Input/Output
+pub mod io;
+
 /// Logging support
 pub mod log;
 
@@ -21,10 +24,6 @@ pub mod time;
 
 use crate::Process;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
-
-pub fn io_get_stderr(_: &mut Ctx) -> u32 {
-    0
-}
 
 pub fn resource_write(
     ctx: &mut Ctx,
