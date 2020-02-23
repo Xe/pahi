@@ -8,6 +8,7 @@ impl Resource for Null {
     fn new(_: Url) -> Null {
         Null {}
     }
+
     fn close(&mut self) {}
 }
 

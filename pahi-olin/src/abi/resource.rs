@@ -1,6 +1,6 @@
 use crate::{
     resource::Resource,
-    scheme::{log::Log, null::Null},
+    scheme::{log::Log, null::Null, random::Random},
     *,
 };
 use log::debug;
@@ -26,6 +26,10 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
                 }
                 "null" => {
                     env.resources.insert(fd, Box::new(Null::new(uri)));
+                    Ok(fd as i32)
+                }
+                "random" => {
+                    env.resources.insert(fd, Box::new(Random::new(uri)));
                     Ok(fd as i32)
                 }
                 _ => Ok(error::Error::NotFound as i32),
