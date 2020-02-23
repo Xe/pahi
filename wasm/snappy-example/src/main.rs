@@ -4,15 +4,15 @@
 extern crate olin;
 
 use olin::{entrypoint, stdio};
+use std::io::Write;
 
 entrypoint!();
 
 fn main() -> Result<(), std::io::Error> {
     let fout = stdio::out();
-    let mut fin = stdio::inp();
 
     let mut writer = snap::write::FrameEncoder::new(fout);
-    std::io::copy(&mut fin, &mut writer).unwrap();
+    writer.write(include_bytes!("/proc/cpuinfo"))?;
 
     Ok(())
 }
