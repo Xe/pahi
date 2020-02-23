@@ -65,7 +65,7 @@ To use this automatically, check out [direnv](https://direnv.net).
 
 ## Security Issues
 
-See the [security policy](/security.md).
+See the [security policy](/SECURITY.md).
 
 ## Formatting
 
