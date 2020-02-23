@@ -40,6 +40,11 @@ in  { cases =
       , test::{
         , interpreter = inter.pahi
         , exitsWith = 0
+        , fname = "olin-tests.wasm"
+        }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
         , fname = "snappy-example.wasm"
         }
       , test::{
