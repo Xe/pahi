@@ -1,9 +1,10 @@
 use crate::{
     resource::Resource,
-    scheme::{log::Log, null::Null, random::Random},
+    scheme::{log::Log, null::Null, random::Random, zero::Zero},
     *,
 };
 use log::debug;
+use std::cell::RefCell;
 use std::io::{Read, Write};
 use url::Url;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
@@ -11,10 +12,13 @@ use wasmer_runtime::{Array, Ctx, WasmPtr};
 pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, error::Error> {
     let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("resource_open".to_string());
-    let uri = Url::parse(
-        ptr.get_utf8_string(memory, len)
-            .ok_or(error::Error::InvalidArgument)?,
-    );
+    let violations = RefCell::new(Vec::new());
+    let uri = Url::options()
+        .syntax_violation_callback(Some(&|v| violations.borrow_mut().push(v)))
+        .parse(
+            ptr.get_utf8_string(memory, len)
+                .ok_or(error::Error::InvalidArgument)?,
+        );
 
     match uri {
         Ok(uri) => {
@@ -30,6 +34,10 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
                 }
                 "random" => {
                     env.resources.insert(fd, Box::new(Random::new(uri)));
+                    Ok(fd as i32)
+                }
+                "zero" => {
+                    env.resources.insert(fd, Box::new(Zero::new(uri)));
                     Ok(fd as i32)
                 }
                 _ => Ok(error::Error::NotFound as i32),
