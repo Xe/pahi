@@ -1,7 +1,8 @@
 use std::io::{self, Read, Write};
+use url::Url;
 
 pub trait Resource: Read + Write {
-    fn new(location: String) -> Self
+    fn new(location: Url) -> Self
     where
         Self: Sized;
 
@@ -13,7 +14,7 @@ pub struct Stdin {
 }
 
 impl Resource for Stdin {
-    fn new(_: String) -> Stdin {
+    fn new(_: Url) -> Stdin {
         Stdin { inp: io::stdin() }
     }
 
@@ -42,7 +43,7 @@ pub struct Stdout {
 }
 
 impl Resource for Stdout {
-    fn new(_: String) -> Stdout {
+    fn new(_: Url) -> Stdout {
         Stdout { out: io::stdout() }
     }
 
@@ -76,7 +77,7 @@ pub struct Stderr {
 }
 
 impl Resource for Stderr {
-    fn new(_: String) -> Stderr {
+    fn new(_: Url) -> Stderr {
         Stderr { err: io::stderr() }
     }
 
