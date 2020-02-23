@@ -26,7 +26,7 @@ Returns the number of bytes written, or InvalidArgumentError if id is greater th
 
 **Errors:**
 
-InvalidArgumentError
+- InvalidArgumentError
 
 ## arg_len
 

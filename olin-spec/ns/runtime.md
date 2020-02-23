@@ -46,7 +46,7 @@ None
 
 **Parameters:**
 
-- `out_base (mut)`: u32 (int *)
+- `out_base (mut)`: u32 (unsigned int *)
 - `out_len (mut)`: u32 (size_t)
 
 **Returns:**

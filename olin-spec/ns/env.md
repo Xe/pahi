@@ -35,5 +35,5 @@ Returns:
 
 **Errors:**
 
-NotFoundError
+- NotFoundError
 

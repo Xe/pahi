@@ -7,7 +7,7 @@ Logging facilities for applications
 **Parameters:**
 
 - `level`: i32 (int)
-- `text_base`: u32 (int *)
+- `text_base`: u32 (unsigned int *)
 - `text_len`: u32 (size_t)
 
 **Returns:**

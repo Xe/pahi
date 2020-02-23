@@ -14,7 +14,7 @@ let toList = Prelude.Text.concatMapSep "\n" type.Type showType
 
 let showErrorInList
     : err.Type → Text
-    = λ(er : err.Type) → "${er.name}"
+    = λ(er : err.Type) → "- ${er.name}"
 
 let toErrList = Prelude.Text.concatMapSep "\n" err.Type showErrorInList
 
