@@ -60,19 +60,26 @@ pub fn read(
     let res = res.as_mut()?;
     let mut data = vec![0; len as usize];
 
-    if let Err(why) = res.read(&mut data) {
-        log::error!("File read error: {:?}", why);
-        return Ok(error::Error::Unknown as i32);
-    }
+    match res.read(&mut data) {
+        Err(why) => {
+            log::error!("File read error: {:?}", why);
+            Ok(error::Error::Unknown as i32)
+        }
+        Ok(read_len) => {
+            if read_len == 0 {
+                return Ok(error::Error::EOF as i32);
+            }
 
-    unsafe {
-        let memory_writer = ptr.deref_mut(memory, 0, len)?;
-        for (i, b) in data.bytes().enumerate() {
-            memory_writer[i].set(b.unwrap());
+            unsafe {
+                let memory_writer = ptr.deref_mut(memory, 0, len)?;
+                for (i, b) in data.bytes().enumerate() {
+                    memory_writer[i].set(b.unwrap());
+                }
+            }
+
+            Ok(len as i32)
         }
     }
-
-    Ok(len as i32)
 }
 
 pub fn write(
