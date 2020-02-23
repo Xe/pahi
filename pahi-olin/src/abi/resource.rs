@@ -1,4 +1,5 @@
 use crate::*;
+use log::{debug, error};
 use std::io::{Read, Write};
 use url::Url;
 use wasmer_runtime::{Array, Ctx, WasmPtr};
@@ -24,22 +25,22 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
     }
 }
 
-pub fn close(ctx: &mut Ctx, fd: u32) -> Result<i32, std::option::NoneError> {
+pub fn close(ctx: &mut Ctx, fd: u32) -> Result<(), ()> {
     let (_, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("resource_close".to_string());
 
     if !env.resources.contains_key(&fd) {
-        return Ok(error::Error::InvalidArgument as i32);
+        return Err(());
     }
 
     let resources = &mut env.resources.as_mut();
     let res = &mut resources.get_mut(&fd);
-    let res = &mut res.as_mut()?;
+    let res = &mut res.as_mut().expect("wanted mutable ref");
 
     res.close();
     resources.remove(&fd);
 
-    Ok(0)
+    Ok(())
 }
 
 pub fn read(
@@ -82,6 +83,7 @@ pub fn write(
 ) -> Result<i32, std::option::NoneError> {
     let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("resource_write".to_string());
+    debug!("write: {:?} {} {}", ptr, len, fd);
 
     if !env.resources.contains_key(&fd) {
         return Ok(error::Error::InvalidArgument as i32);

@@ -3,7 +3,7 @@
 
 extern crate olin;
 
-use olin::{log, runtime, stdio, time, entrypoint};
+use olin::{entrypoint, log, runtime, stdio, time};
 use std::io::Write;
 
 entrypoint!();
@@ -27,7 +27,7 @@ fn main() -> Result<(), std::io::Error> {
         runtime::spec_major(),
         runtime::spec_minor()
     )
-        .expect("write to work");
+    .expect("write to work");
     write!(out, "Now:\t\t{}\n", time::now().to_rfc3339()).expect("write to work");
     Ok(())
 }
