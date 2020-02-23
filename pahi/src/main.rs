@@ -3,7 +3,7 @@ extern crate wasmer_runtime;
 use pahi_olin::*;
 use std::fs;
 use structopt::StructOpt;
-use wasmer_runtime::instantiate;
+use wasmer_runtime::{error, instantiate};
 
 #[macro_use]
 extern crate log;
@@ -52,6 +52,7 @@ fn main() -> Result<(), String> {
 
     let filename = opt.fname.clone();
     let imports = import_object(opt.fname, args);
+    let mut exit_code = 0;
 
     debug!("opening {}", filename);
 
@@ -64,11 +65,25 @@ fn main() -> Result<(), String> {
 
     match result {
         Ok(_) => info!("{} exited peacefully", filename),
-        Err(why) => error!("{} exited violently: {}", filename, why),
+        Err(why) => match why {
+            error::RuntimeError::Error { data } => {
+                if let Some(exit) = data.downcast_ref::<ExitCode>() {
+                    exit_code = exit.code;
+                }
+            }
+            error::RuntimeError::Trap { ref msg } => {
+                error!("{} exited violently: {}", filename, msg);
+            }
+        },
     }
 
     let (_, env) = Process::get_memory_and_environment(instance.context_mut(), 0);
 
     info!("Here are the logged calls: {:?}", env.called_functions);
+
+    if exit_code != 0 {
+        std::process::exit(exit_code);
+    }
+
     Ok(())
 }

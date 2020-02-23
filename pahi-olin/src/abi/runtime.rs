@@ -3,11 +3,11 @@ use log::info;
 use std::{thread, time};
 use wasmer_runtime::{Array, Ctx, WasmPtr};
 
-pub fn exit(ctx: &mut Ctx, code: u32) -> Result<(), ()> {
+pub fn exit(ctx: &mut Ctx, code: i32) -> Result<(), ExitCode> {
     let (_, env) = Process::get_memory_and_environment(ctx, 0);
     env.log_call("runtime_exit".to_string());
     info!("{}: exiting with {}", env.name, code);
-    Err(())
+    Err(ExitCode { code: code })
 }
 
 pub const NAME: &'static str = "pa'i";

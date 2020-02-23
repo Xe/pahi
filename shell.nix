@@ -12,4 +12,5 @@ in pkgs.mkShell {
 
   # envvars
   RUST_LOG = "info";
+  MAGIC_CONCH = "yes";
 }

@@ -8,6 +8,12 @@ use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 pub mod abi;
 pub mod error;
 
+/// Exit code for child processes
+#[derive(Debug)]
+pub struct ExitCode {
+    pub code: i32,
+}
+
 /// Process is an individual CommonWA process. It is the collection of resources
 /// and other macguffins that the child module ends up requiring.
 pub struct Process {
