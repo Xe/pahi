@@ -79,7 +79,11 @@ fn main() -> Result<(), String> {
 
     let (_, env) = Process::get_memory_and_environment(instance.context_mut(), 0);
 
-    info!("Here are the logged calls: {:?}", env.called_functions);
+    info!("func logs:");
+
+    for (key, val) in env.called_functions.iter() {
+        info!("{}: {}", key, val);
+    }
 
     if exit_code != 0 {
         std::process::exit(exit_code);

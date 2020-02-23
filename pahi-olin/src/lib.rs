@@ -21,7 +21,7 @@ pub struct ExitCode {
 pub struct Process {
     pub name: String,
     pub args: Vec<String>,
-    pub called_functions: Vec<String>,
+    pub called_functions: Box<HashMap<String, u32>>,
     pub envvars: BTreeMap<String, String>,
     pub resources: Box<HashMap<u32, Box<dyn resource::Resource>>>,
 }
@@ -37,14 +37,23 @@ impl Process {
         Process {
             name: host_name,
             args: args,
-            called_functions: vec![],
+            called_functions: Box::new(HashMap::new()),
             envvars: envvars,
             resources: Box::new(HashMap::new()),
         }
     }
 
     pub fn log_call(&mut self, func_name: String) {
-        self.called_functions.push(func_name);
+        let func_log = &mut self.called_functions.as_mut();
+
+        if func_log.contains_key(&func_name) {
+            func_log.insert(func_name.clone(), {
+                let amt = func_log[&func_name] + 1;
+                amt
+            });
+        } else {
+            func_log.insert(func_name, 1);
+        }
     }
 
     pub fn get_memory_and_environment(ctx: &mut Ctx, mem_index: u32) -> (&Memory, &mut Process) {
