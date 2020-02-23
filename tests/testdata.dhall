@@ -38,11 +38,6 @@ in  { cases =
         , fname = "olin-tests.wasm"
         }
       , test::{
-        , interpreter = inter.cwa
-        , exitsWith = 0
-        , fname = "snappy-example.wasm"
-        }
-      , test::{
         , interpreter = inter.pahi
         , exitsWith = 0
         , fname = "snappy-example.wasm"
