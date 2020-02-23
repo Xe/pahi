@@ -1,6 +1,6 @@
 #![feature(try_trait)]
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashMap};
 use std::env;
 use std::ffi::c_void;
 use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
@@ -22,6 +22,7 @@ pub struct Process {
     pub args: Vec<String>,
     pub called_functions: Vec<String>,
     pub envvars: BTreeMap<String, String>,
+    pub resources: HashMap<u32, Box<dyn resource::Resource>>,
 }
 
 impl Process {
@@ -37,6 +38,7 @@ impl Process {
             args: args,
             called_functions: vec![],
             envvars: envvars,
+            resources: HashMap::new(),
         }
     }
 

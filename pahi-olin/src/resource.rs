@@ -1,7 +1,9 @@
 use std::io::{self, Read, Write};
 
 pub trait Resource: Read + Write {
-    fn new(location: String) -> Self;
+    fn new(location: String) -> Self
+    where
+        Self: Sized;
 
     fn close(&mut self);
 }
