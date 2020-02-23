@@ -17,9 +17,9 @@ pub fn write(ctx: &mut Ctx, level: u32, ptr: WasmPtr<u8, Array>, len: u32) {
     let (memory, env) = Process::get_memory_and_environment(ctx, 0);
     let string = ptr.get_utf8_string(memory, len).unwrap();
     match FromPrimitive::from_u32(level) {
-        Some(LogLevel::Info) => println!("{}: info: {}", env.name, string),
-        Some(LogLevel::Warning) => println!("{}: warn: {}", env.name, string),
-        Some(LogLevel::Error) => println!("{}: error: {}", env.name, string),
+        Some(LogLevel::Info) => eprintln!("{}: info: {}", env.name, string),
+        Some(LogLevel::Warning) => eprintln!("{}: warn: {}", env.name, string),
+        Some(LogLevel::Error) => eprintln!("{}: error: {}", env.name, string),
         None => panic!("invalid log level {}", level),
     }
 

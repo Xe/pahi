@@ -11,6 +11,6 @@ in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 
   # envvars
-  RUST_LOG = "info";
+  RUST_LOG = "pahi=error,pahi_olin=info";
   MAGIC_CONCH = "yes";
 }
