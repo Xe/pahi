@@ -7,6 +7,7 @@ use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 
 pub mod abi;
 pub mod error;
+pub mod resource;
 
 /// Exit code for child processes
 #[derive(Debug)]
