@@ -149,6 +149,16 @@ in  { cases =
         , exitsWith = 0
         , fname = "zig/triangle.wasm"
         }
+      , test::{
+        , interpreter = inter.cwa
+        , exitsWith = 0
+        , fname = "magic_conch.wasm"
+        }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
+        , fname = "magic_conch.wasm"
+        }
       ]
-    , env = [ "MAGIC_CONCH=yes" ]
+    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no" ]
     }

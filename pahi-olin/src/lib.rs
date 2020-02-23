@@ -1,3 +1,7 @@
+#![feature(try_trait)]
+
+use std::collections::BTreeMap;
+use std::env;
 use std::ffi::c_void;
 use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 
@@ -10,14 +14,22 @@ pub struct Process {
     pub name: String,
     pub args: Vec<String>,
     pub called_functions: Vec<String>,
+    pub envvars: BTreeMap<String, String>,
 }
 
 impl Process {
     pub fn new(host_name: String, args: Vec<String>) -> Self {
+        let mut envvars = BTreeMap::new();
+
+        for (key, value) in env::vars() {
+            envvars.insert(key, value);
+        }
+
         Process {
             name: host_name,
             args: args,
             called_functions: vec![],
+            envvars: envvars,
         }
     }
 
@@ -48,6 +60,9 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
     imports! {
         env_generator,
         "cwa" => {
+            // env
+            "env_get" => func!(abi::env::get),
+
             // io
             "io_get_stderr" => func!(abi::io_get_stderr),
 
@@ -78,6 +93,9 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
             "time_now" => func!(abi::time::now),
         },
         "env" => {
+            // env
+            "env_get" => func!(abi::env::get),
+
             // io
             "io_get_stderr" => func!(abi::io_get_stderr),
 

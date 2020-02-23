@@ -430,11 +430,11 @@ macro_rules! entrypoint {
             olin::panic::set_hook();
 
             if let Err(e) = main() {
-                olin::log::error(format!("Application error: {:}", e).as_str());
+                olin::log::error(format!("Application error: {:?}", e).as_str());
                 olin::runtime::exit(1);
             }
 
             olin::runtime::exit(0);
         }
-    }
+    };
 }

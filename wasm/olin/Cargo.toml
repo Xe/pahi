@@ -24,6 +24,10 @@ path = "src/bin/allyourlogs.rs"
 name = "allyourargs"
 path = "src/bin/allyourargs.rs"
 
+[[bin]]
+name = "magic_conch"
+path = "src/bin/magic_conch.rs"
+
 [dependencies]
 chrono = "0.4"
 http = "0.1"

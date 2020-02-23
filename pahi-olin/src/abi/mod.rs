@@ -1,6 +1,9 @@
 /// The Olin ABI implemented for pa'i. This mostly contains rigging and other
 /// internal implementation details.
 
+/// Environment variables
+pub mod env;
+
 /// Logging support
 pub mod log;
 
