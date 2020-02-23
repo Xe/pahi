@@ -17,7 +17,7 @@ let fd
       → let sinkName = if errSink then "error output" else "${name}put"
 
         in  func::{
-            , name = "get_${name}"
+            , name = "get_std${name}"
             , params = [] : List type.Type
             , return = utils.u32 "fd"
             , errors = [] : List err.Type

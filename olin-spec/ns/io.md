@@ -2,7 +2,7 @@
 
 File descriptors for standard input and output.
 
-## get_out
+## get_stdout
 
 **Parameters:**
 
@@ -22,7 +22,7 @@ Returns a read-only file descriptor pointing to the semantic standard output of 
 
 None
 
-## get_in
+## get_stdin
 
 **Parameters:**
 
@@ -42,7 +42,7 @@ Returns a read-only file descriptor pointing to the semantic standard input of t
 
 None
 
-## get_err
+## get_stderr
 
 **Parameters:**
 
