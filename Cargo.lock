@@ -96,6 +96,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "cachedir"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c06509d1f4ffa658939bd23f076cd929ef218241363796551528e7eec69128c8"
+
+[[package]]
 name = "cc"
 version = "1.0.50"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -524,6 +530,7 @@ dependencies = [
 name = "pahi"
 version = "0.1.0"
 dependencies = [
+ "cachedir",
  "env_logger",
  "log",
  "num-derive",

@@ -3,3 +3,6 @@ members = [
   "pahi",
   "pahi-olin"
 ]
+
+[profile.release]
+lto = true

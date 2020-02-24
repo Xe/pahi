@@ -1,9 +1,10 @@
 extern crate wasmer_runtime;
 
+use cachedir::CacheDirConfig;
 use pahi_olin::*;
 use std::fs;
 use structopt::StructOpt;
-use wasmer_runtime::{error, instantiate};
+use wasmer_runtime::{cache::*, compile, error, Module};
 
 #[macro_use]
 extern crate log;
@@ -17,6 +18,14 @@ struct Opt {
     /// Backend
     #[structopt(short, long, default_value = "cranelift")]
     backend: String,
+
+    /// Print syscalls on exit
+    #[structopt(short, long)]
+    function_log: bool,
+
+    /// Do not cache compiled code?
+    #[structopt(short, long)]
+    no_cache: bool,
 
     /// Binary to run
     #[structopt()]
@@ -57,7 +66,32 @@ fn main() -> Result<(), String> {
     debug!("opening {}", filename);
 
     let data: &[u8] = &fs::read(&filename).expect("wanted file to have data");
-    let mut instance = instantiate(data, &imports).expect("wanted imports to work");
+    let module: Module;
+
+    if !opt.no_cache {
+        let cache_dir = CacheDirConfig::new("pahi")
+            .user_cache(true)
+            .get_cache_dir()
+            .unwrap()
+            .into_path_buf();
+
+        let mut fs_cache =
+            unsafe { FileSystemCache::new(cache_dir).expect("wanted to create FS cache") };
+        let key = WasmHash::generate(&data);
+
+        if let Ok(modu) = fs_cache.load(key) {
+            module = modu;
+        } else {
+            module = compile(data).expect("module to compile");
+            fs_cache
+                .store(key, module.clone())
+                .expect("cache storage to work");
+        }
+    } else {
+        module = compile(data).expect("module to compile");
+    }
+
+    let mut instance = module.instantiate(&imports).expect("instantiation to work");
     let result = instance
         .func::<(), ()>(&opt.entrypoint)
         .expect("_start not found")
@@ -79,10 +113,12 @@ fn main() -> Result<(), String> {
 
     let (_, env) = Process::get_memory_and_environment(instance.context_mut(), 0);
 
-    info!("func logs:");
+    if opt.function_log {
+        info!("func logs:");
 
-    for (key, val) in env.called_functions.iter() {
-        info!("{}: {}", key, val);
+        for (key, val) in env.called_functions.iter() {
+            info!("{}: {}", key, val);
+        }
     }
 
     if exit_code != 0 {

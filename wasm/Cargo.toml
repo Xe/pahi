@@ -5,3 +5,6 @@ members = [
   "olin-tests",
   "snappy-example"
 ]
+
+[profile.release]
+lto = true
