@@ -160,5 +160,5 @@ in  { cases =
         , fname = "magic_conch.wasm"
         }
       ]
-    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no" ]
+    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no", "HOME=/" ]
     }
