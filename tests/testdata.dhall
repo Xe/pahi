@@ -45,7 +45,7 @@ in  { cases =
       , test::{
         , interpreter = inter.pahi
         , exitsWith = 0
-        , fname = "snappy-example.wasm"
+        , fname = "cpustrain.wasm"
         }
       , test::{
         , interpreter = inter.cwa
