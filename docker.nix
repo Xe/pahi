@@ -12,8 +12,14 @@ let
       name = "xena/pahi";
       tag = "latest";
 
-      contents =
-        [ pkg pkgs.bash pkgs.cacert pkgs.coreutils dhall.dhall-json-simple ];
+      contents = [
+        pkg
+        pkgs.bash
+        pkgs.cacert
+        pkgs.coreutils
+        pkgs.hyperfine
+        dhall.dhall-json-simple
+      ];
 
       config = {
         Cmd = [ "/bin/bash" ];

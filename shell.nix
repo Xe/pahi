@@ -6,8 +6,15 @@ let
   rust = import ./nix/rust.nix { inherit sources; };
   dhall = import ./nix/dhall.nix;
 in pkgs.mkShell {
-  buildInputs =
-    [ rust niv.niv olin dhall.dhall-simple sources.dhall-lang pkgs.go ];
+  buildInputs = [
+    rust
+    niv.niv
+    olin
+    dhall.dhall-simple
+    sources.dhall-lang
+    pkgs.go
+    pkgs.hyperfine
+  ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 
   # envvars
