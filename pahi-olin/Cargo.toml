@@ -3,6 +3,7 @@ name = "pahi-olin"
 version = "0.1.0"
 authors = ["Christine Dodrill <me@christine.website>"]
 edition = "2018"
+description = "The pa'i runtime API bindings"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
