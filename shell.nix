@@ -9,8 +9,14 @@ in pkgs.mkShell {
   buildInputs = [
     rust
 
+    # benchmarks
+    pkgs.hyperfine
+
     # dependency management
     niv.niv
+
+    # native dependencies
+    pkgs.openssl
 
     # olin-docs
     dhall.dhall-simple
@@ -19,9 +25,6 @@ in pkgs.mkShell {
     # tests
     pkgs.go
     olin
-
-    # benchmarks
-    pkgs.hyperfine
   ];
   nativeBuildInputs = [ pkgs.removeReferencesTo ];
 

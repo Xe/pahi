@@ -14,14 +14,14 @@ impl Resource for Http {
             return Err(Error::InvalidArgument);
         }
 
+        let host = u.host().unwrap();
         let port: u16 = match u.port() {
             Some(port_num) => port_num,
             None => 80,
         };
 
-        match TcpStream::connect(format!("{}:{}", u.host().unwrap(), port)) {
-            Ok(conn) => Ok(Http { stream: conn }),
-            Err(why) => {
+        TcpStream::connect((host.to_string().as_str(), port))
+            .or_else(|why| {
                 error!(
                     "connection error to {}:{}: {:?}",
                     u.host().unwrap(),
@@ -29,8 +29,8 @@ impl Resource for Http {
                     why
                 );
                 Err(Error::Unknown)
-            }
-        }
+            })
+            .and_then(|conn| Ok(Http { stream: conn }))
     }
 
     fn close(&mut self) {

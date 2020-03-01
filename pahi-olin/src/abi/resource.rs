@@ -1,6 +1,6 @@
 use crate::{
     resource::Resource,
-    scheme::{http::Http, log::Log, null::Null, random::Random, zero::Zero},
+    scheme::{http::Http, https::Https, log::Log, null::Null, random::Random, zero::Zero},
     *,
 };
 use log::debug;
@@ -24,6 +24,20 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
         Ok(uri) => {
             let fd = env.get_fd();
             return match uri.scheme() {
+                "http" => match Http::new(uri) {
+                    Ok(res) => {
+                        env.resources.insert(fd, Box::new(res));
+                        return Ok(fd as i32);
+                    }
+                    Err(why) => Ok(why as i32),
+                },
+                "https" => match Https::new(uri) {
+                    Ok(res) => {
+                        env.resources.insert(fd, Box::new(res));
+                        return Ok(fd as i32);
+                    }
+                    Err(why) => Ok(why as i32),
+                },
                 "log" => {
                     env.resources.insert(fd, Box::new(Log::new(uri).unwrap()));
                     Ok(fd as i32)
@@ -41,19 +55,12 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
                     env.resources.insert(fd, Box::new(Zero::new(uri).unwrap()));
                     Ok(fd as i32)
                 }
-                "http" => match Http::new(uri) {
-                    Ok(res) => {
-                        env.resources.insert(fd, Box::new(res));
-                        return Ok(fd as i32);
-                    }
-                    Err(why) => Ok(why as i32),
-                },
-                _ => Ok(error::Error::NotFound as i32),
+                _ => Ok(error::Error::InvalidArgument as i32),
             };
         }
         Err(why) => {
             log::error!("URL parsing error {}: {:?}", &raw_uri, why);
-            Ok(error::Error::Unknown as i32)
+            Ok(error::Error::InvalidArgument as i32)
         }
     }
 }
