@@ -4,7 +4,7 @@ use cachedir::CacheDirConfig;
 use pahi_olin::*;
 use std::fs;
 use structopt::StructOpt;
-use wasmer_runtime::{cache::*, compile, error, Module};
+use wasmer_runtime::{cache::*, compile, Module};
 
 #[macro_use]
 extern crate log;
@@ -97,18 +97,14 @@ fn main() -> Result<(), String> {
         .expect("_start not found")
         .call();
 
-    match result {
-        Ok(_) => info!("{} exited peacefully", filename),
-        Err(why) => match why {
-            error::RuntimeError::Error { data } => {
-                if let Some(exit) = data.downcast_ref::<ExitCode>() {
-                    exit_code = exit.code;
-                }
-            }
-            error::RuntimeError::Trap { ref msg } => {
-                error!("{} exited violently: {}", filename, msg);
-            }
-        },
+    if let Err(ref why) = result {
+        if let Some(exit) = why.0.downcast_ref::<ExitCode>() {
+            exit_code = exit.code;
+        } else {
+            error!("{} exited violently: {:?}", filename, why);
+        }
+    } else {
+        info!("{} exited peacefully", filename);
     }
 
     let (_, env) = Process::get_memory_and_environment(instance.context_mut(), 0);
