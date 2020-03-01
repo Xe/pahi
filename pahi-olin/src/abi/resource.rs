@@ -22,7 +22,6 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
 
     match uri {
         Ok(uri) => {
-            log::info!("url: {}", uri.scheme());
             let fd = env.get_fd();
             return match uri.scheme() {
                 "http" => match Http::new(uri) {
