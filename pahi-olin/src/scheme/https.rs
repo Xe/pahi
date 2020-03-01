@@ -22,25 +22,29 @@ impl Resource for Https {
             None => 443,
         };
 
-        match TcpStream::connect((host.as_str(), port)) {
-            Ok(conn) => {
+        TcpStream::connect((host.as_str(), port))
+            .or_else(|why| {
+                error!(
+                    "connection error to {}:{}: {:?}",
+                    u.host().unwrap(),
+                    port,
+                    why
+                );
+                Err(Error::Unknown)
+            })
+            .and_then(|conn| {
                 let connector = SslConnector::builder(SslMethod::tls()).unwrap().build();
-                match connector.connect(host.as_str(), conn) {
-                    Ok(stream) => Ok(Https { stream: stream }),
-                    Err(why) => {
+                connector
+                    .connect(host.as_str(), conn)
+                    .or_else(|why| {
                         error!(
                             "error establishing TLS session for {}:{}: {:?}",
                             host, port, why
                         );
                         Err(Error::Unknown)
-                    }
-                }
-            }
-            Err(why) => {
-                error!("connection error to {}:{}: {:?}", host, port, why);
-                Err(Error::Unknown)
-            }
-        }
+                    })
+                    .and_then(|stream| Ok(Https { stream: stream }))
+            })
     }
 
     fn close(&mut self) {
