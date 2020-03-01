@@ -59,6 +59,7 @@ func main() {
 		log.Fatalf("json unmarshal failure: %v", err)
 	}
 
+	var failCount int
 	for i, cs := range suite.Cases {
 		i++
 		outBuf := bytes.NewBuffer(nil)
@@ -87,8 +88,11 @@ func main() {
 		msg := "OK"
 		if failed {
 			msg = "NOT OK"
+			failCount++
 		}
 
 		fmt.Printf("%d %s %s %s\n", i, msg, cs.Interpreter, cs.Fname)
 	}
+
+	os.Exit(failCount)
 }
