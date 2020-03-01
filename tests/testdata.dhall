@@ -7,6 +7,9 @@ let test =
 
 let home = env:HOME as Text ? "/"
 
+let sslRootLocation =
+      env:NIX_SSL_CERT_FILE as Text ? "/etc/ssl/certs/ca-certificates.crt"
+
 in  { cases =
       [ test::{
         , interpreter = inter.pahi
@@ -162,5 +165,10 @@ in  { cases =
         , fname = "magic_conch.wasm"
         }
       ]
-    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no", "HOME=${home}" ]
+    , env =
+      [ "MAGIC_CONCH=yes"
+      , "OTHER_VAL=no"
+      , "HOME=${home}"
+      , "NIX_SSL_CERT_FILE=${sslRootLocation}"
+      ]
     }

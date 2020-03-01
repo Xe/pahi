@@ -64,10 +64,10 @@ impl Process {
 
     pub fn get_fd(&self) -> u32 {
         let mut rng = thread_rng();
-        let mut result = rng.next_u32();
+        let mut result = rng.next_u32() % (65536 / 2);
 
         while self.resources.contains_key(&result) {
-            result = rng.next_u32();
+            result = rng.next_u32() % (65536 / 2);
         }
 
         result

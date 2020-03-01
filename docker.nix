@@ -17,7 +17,6 @@ let
         pkgs.bash
         pkgs.cacert
         pkgs.coreutils
-        pkgs.openssl
         pkgs.hyperfine
         dhall.dhall-json-simple
       ];
@@ -25,6 +24,7 @@ let
       config = {
         Cmd = [ "/bin/bash" ];
         WorkingDir = "/";
+        Env = [ "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt" ];
       };
     };
 
