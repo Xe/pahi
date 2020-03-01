@@ -1,6 +1,6 @@
 use crate::{
     resource::Resource,
-    scheme::{log::Log, null::Null, random::Random, zero::Zero},
+    scheme::{http::Http, log::Log, null::Null, random::Random, zero::Zero},
     *,
 };
 use log::debug;
@@ -25,21 +25,29 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
             let fd = env.get_fd();
             return match uri.scheme() {
                 "log" => {
-                    env.resources.insert(fd, Box::new(Log::new(uri)));
+                    env.resources.insert(fd, Box::new(Log::new(uri).unwrap()));
                     Ok(fd as i32)
                 }
                 "null" => {
-                    env.resources.insert(fd, Box::new(Null::new(uri)));
+                    env.resources.insert(fd, Box::new(Null::new(uri).unwrap()));
                     Ok(fd as i32)
                 }
                 "random" => {
-                    env.resources.insert(fd, Box::new(Random::new(uri)));
+                    env.resources
+                        .insert(fd, Box::new(Random::new(uri).unwrap()));
                     Ok(fd as i32)
                 }
                 "zero" => {
-                    env.resources.insert(fd, Box::new(Zero::new(uri)));
+                    env.resources.insert(fd, Box::new(Zero::new(uri).unwrap()));
                     Ok(fd as i32)
                 }
+                "http" => match Http::new(uri) {
+                    Ok(res) => {
+                        env.resources.insert(fd, Box::new(res));
+                        return Ok(fd as i32);
+                    }
+                    Err(why) => Ok(why as i32),
+                },
                 _ => Ok(error::Error::NotFound as i32),
             };
         }

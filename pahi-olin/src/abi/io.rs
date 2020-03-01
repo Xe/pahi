@@ -13,7 +13,7 @@ pub fn stdout(ctx: &mut Ctx) -> Result<u32, ()> {
 
     env.resources.insert(
         fd,
-        Box::new(Stdout::new(Url::parse("pahi:stdout").unwrap())),
+        Box::new(Stdout::new(Url::parse("pahi:stdout").unwrap()).unwrap()),
     );
 
     Ok(fd)
@@ -24,8 +24,10 @@ pub fn stdin(ctx: &mut Ctx) -> Result<u32, ()> {
     let fd = env.get_fd();
     debug!("stdin: {}", fd);
 
-    env.resources
-        .insert(fd, Box::new(Stdin::new(Url::parse("pahi:stdin").unwrap())));
+    env.resources.insert(
+        fd,
+        Box::new(Stdin::new(Url::parse("pahi:stdin").unwrap()).unwrap()),
+    );
 
     Ok(fd)
 }
@@ -37,7 +39,7 @@ pub fn stderr(ctx: &mut Ctx) -> Result<u32, ()> {
 
     env.resources.insert(
         fd,
-        Box::new(Stderr::new(Url::parse("pahi:stderr").unwrap())),
+        Box::new(Stderr::new(Url::parse("pahi:stderr").unwrap()).unwrap()),
     );
 
     Ok(fd)

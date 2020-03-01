@@ -1,12 +1,12 @@
-use crate::resource::Resource;
+use crate::{error::Error, resource::Resource};
 use std::io::{self, Read, Write};
 use url::Url;
 
 pub struct Null {}
 
 impl Resource for Null {
-    fn new(_: Url) -> Null {
-        Null {}
+    fn new(_: Url) -> Result<Null, Error> {
+        Ok(Null {})
     }
 
     fn close(&mut self) {}

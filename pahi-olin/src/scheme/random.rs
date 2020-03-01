@@ -1,4 +1,4 @@
-use crate::resource::Resource;
+use crate::{error::Error, resource::Resource};
 use rand::prelude::*;
 use std::io::{self, Read, Write};
 use url::Url;
@@ -6,8 +6,8 @@ use url::Url;
 pub struct Random {}
 
 impl Resource for Random {
-    fn new(_: Url) -> Random {
-        Random {}
+    fn new(_: Url) -> Result<Random, Error> {
+        Ok(Random {})
     }
 
     fn close(&mut self) {}

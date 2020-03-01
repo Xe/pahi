@@ -6,8 +6,8 @@ use url::Url;
 pub struct Log {}
 
 impl Resource for Log {
-    fn new(_: Url) -> Log {
-        Log {}
+    fn new(_: Url) -> Result<Log, crate::error::Error> {
+        Ok(Log {})
     }
     fn close(&mut self) {}
 }

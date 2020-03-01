@@ -1,8 +1,9 @@
+use crate::error::Error;
 use std::io::{self, Read, Write};
 use url::Url;
 
 pub trait Resource: Read + Write {
-    fn new(location: Url) -> Self
+    fn new(location: Url) -> Result<Self, Error>
     where
         Self: Sized;
 
@@ -14,8 +15,8 @@ pub struct Stdin {
 }
 
 impl Resource for Stdin {
-    fn new(_: Url) -> Stdin {
-        Stdin { inp: io::stdin() }
+    fn new(_: Url) -> Result<Stdin, Error> {
+        Ok(Stdin { inp: io::stdin() })
     }
 
     fn close(&mut self) {}
@@ -43,8 +44,8 @@ pub struct Stdout {
 }
 
 impl Resource for Stdout {
-    fn new(_: Url) -> Stdout {
-        Stdout { out: io::stdout() }
+    fn new(_: Url) -> Result<Stdout, Error> {
+        Ok(Stdout { out: io::stdout() })
     }
 
     fn close(&mut self) {}
@@ -77,8 +78,8 @@ pub struct Stderr {
 }
 
 impl Resource for Stderr {
-    fn new(_: Url) -> Stderr {
-        Stderr { err: io::stderr() }
+    fn new(_: Url) -> Result<Stderr, Error> {
+        Ok(Stderr { err: io::stderr() })
     }
 
     fn close(&mut self) {}
