@@ -30,6 +30,7 @@ pub struct Process {
 impl Process {
     pub fn new(host_name: String, args: Vec<String>) -> Self {
         let mut envvars = BTreeMap::new();
+        openssl::init();
 
         for (key, value) in env::vars() {
             envvars.insert(key, value);

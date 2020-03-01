@@ -5,6 +5,8 @@ let test =
       , default = { interpreter = inter.none, exitsWith = 1, fname = "invalid" }
       }
 
+let home = env:HOME as Text ? "/"
+
 in  { cases =
       [ test::{
         , interpreter = inter.pahi
@@ -160,5 +162,5 @@ in  { cases =
         , fname = "magic_conch.wasm"
         }
       ]
-    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no", "HOME=/" ]
+    , env = [ "MAGIC_CONCH=yes", "OTHER_VAL=no", "HOME=${home}" ]
     }

@@ -17,6 +17,7 @@ let
         pkgs.bash
         pkgs.cacert
         pkgs.coreutils
+        pkgs.openssl
         pkgs.hyperfine
         dhall.dhall-json-simple
       ];

@@ -11,8 +11,9 @@ pub extern "C" fn test() -> Result<(), i32> {
     let mut resp_body = Vec::<u8>::new();
     let mut req_body = Vec::<u8>::new();
     let req = http::Request::builder()
-        .uri("http://bsnk.minipaas.xeserv.us")
+        .uri("https://xena.greedo.xeserv.us/")
         .header("User-Agent", "Olin/dev")
+        .header("Host", "xena.greedo.xeserv.us")
         .body(&mut req_body)
         .map_err(|e| {
             log::error(&format!("request error: {:?}", e));
@@ -20,11 +21,11 @@ pub extern "C" fn test() -> Result<(), i32> {
         })?;
 
     let resp =
-        olin::http::client::transport("bsnk.minipaas.xeserv.us".to_string(), req, &mut resp_body)
+        olin::http::client::transport("xena.greedo.xeserv.us".to_string(), req, &mut resp_body)
             .map_err(|e| {
-            log::error(&format!("transport error: {:?}", e));
-            1
-        })?;
+                log::error(&format!("transport error: {:?}", e));
+                1
+            })?;
 
     log::info(&format!("status: {:?}", resp.status()));
     log::info(&format!(
