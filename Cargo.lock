@@ -70,14 +70,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf1de2fe8c75bc145a2f577add951f8134889b4795d47466a54a5c846d691693"
 
 [[package]]
-name = "blake2b_simd"
-version = "0.5.10"
+name = "blake3"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8fb2d74254a3a0b5cac33ac9f8ed0e44aa50378d9dbb2e5d83bd21ed1dc2c8a"
+checksum = "46080006c1505f12f64dd2a09264b343381ed3190fa02c8005d5d662ac571c63"
 dependencies = [
  "arrayref",
  "arrayvec",
+ "cc",
+ "cfg-if",
  "constant_time_eq",
+ "crypto-mac",
+ "digest",
 ]
 
 [[package]]
@@ -268,6 +272,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-mac"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4434400df11d95d556bac068ddfedd482915eb18fe8bea89bc80b6e4b1c179e5"
+dependencies = [
+ "generic-array",
+ "subtle",
+]
+
+[[package]]
 name = "digest"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -377,9 +391,9 @@ dependencies = [
 
 [[package]]
 name = "hex"
-version = "0.3.2"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "805026a5d0141ffc30abb3be3173848ad46a1b1664fe632428479619a3644d77"
+checksum = "644f9158b2f133fd50f5fb3242878846d9eb792e445c893805ff0e3824006e35"
 
 [[package]]
 name = "humantime"
@@ -598,27 +612,25 @@ dependencies = [
 
 [[package]]
 name = "parking_lot"
-version = "0.9.0"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f842b1982eb6c2fe34036a4fbfb06dd185a3f5c8edfaacdf7d1ea10b07de6252"
+checksum = "92e98c49ab0b7ce5b222f2cc9193fc4efe11c6d0bd4f648e374684a6857b1cfc"
 dependencies = [
  "lock_api",
  "parking_lot_core",
- "rustc_version",
 ]
 
 [[package]]
 name = "parking_lot_core"
-version = "0.6.2"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b876b1b9e7ac6e1a74a6da34d25c42e17e8862aa409cbbbdcfc8d86c6f3bc62b"
+checksum = "7582838484df45743c8434fbff785e8edf260c28748353d44bc0da32e0ceabf1"
 dependencies = [
  "cfg-if",
  "cloudabi",
  "libc",
  "redox_syscall",
- "rustc_version",
- "smallvec 0.6.13",
+ "smallvec 1.2.0",
  "winapi",
 ]
 
@@ -931,6 +943,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "subtle"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d67a5a62ba6e01cb2192ff309324cb4875d0c451d55fe2319433abe7a05a8ee"
+
+[[package]]
 name = "syn"
 version = "0.15.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1112,9 +1130,9 @@ checksum = "cccddf32554fecc6acb585f82a32a72e28b48f8c4c1883ddfeeeaa96f7d8e519"
 
 [[package]]
 name = "wasmer-clif-backend"
-version = "0.13.1"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c785ab26863bd64d2ce2956083c3db9a09d7d639b6205baee6e54f258f94e034"
+checksum = "ea74b659f78bffcc2db4bd77bf27ce66907ab76728d012346b130fe384e11399"
 dependencies = [
  "byteorder",
  "cranelift-codegen",
@@ -1164,9 +1182,9 @@ dependencies = [
 
 [[package]]
 name = "wasmer-runtime"
-version = "0.13.1"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "05726a0bc546d57e06cde6a7754cf9afbf21a5869d080a3c654d35902cd6fab3"
+checksum = "4a005e93916e9c4d6bb67fd301b4840fa3994be01806659fc94a72a85386550e"
 dependencies = [
  "lazy_static",
  "memmap",
@@ -1178,12 +1196,12 @@ dependencies = [
 
 [[package]]
 name = "wasmer-runtime-core"
-version = "0.13.1"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b1131f1bb9a0610eeef2974275de019027fa8dcfac78a9976439ce5f4561ade"
+checksum = "af29c21b4b17c90035dc5bc6a4dcf018b16acfd745631c905f2a7f04e3e2c74e"
 dependencies = [
  "bincode",
- "blake2b_simd",
+ "blake3",
  "cc",
  "digest",
  "errno",
@@ -1206,9 +1224,9 @@ dependencies = [
 
 [[package]]
 name = "wasmer-win-exception-handler"
-version = "0.13.1"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eac6af8ef69d582a851bb116be4faebc42d1f52ef00922e1688f3eff48d0d96b"
+checksum = "8e5ede589f678bb6c061e173394506589fd2bae9165d841b218c5d07b3082cd4"
 dependencies = [
  "cmake",
  "libc",

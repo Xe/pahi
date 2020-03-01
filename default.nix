@@ -3,6 +3,7 @@ let
   rust = import ./nix/rust.nix { inherit sources; };
   pkgs = import sources.nixpkgs { };
   dhall = import ./nix/dhall.nix { inherit sources pkgs; };
+  olin-cwa = import sources.olin { };
   naersk = pkgs.callPackage sources.naersk {
     rustc = rust;
     cargo = rust;
@@ -12,8 +13,10 @@ let
     (path: type: type != "directory" || builtins.baseNameOf path != "target")
     ./.;
 
-  pahi = naersk.buildPackage { inherit name src; };
-  olin-cwa = import sources.olin { };
+  pahi = naersk.buildPackage {
+    inherit name src;
+    buildInputs = [ pkgs.openssl pkgs.pkg-config ];
+  };
 
   olin = naersk.buildPackage {
     name = "olin";
