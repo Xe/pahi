@@ -54,6 +54,7 @@ let
       cp -rf ${pahi-testrunner}/bin/tests $out/bin/testrunner
       mkdir -p $out/tests
       cp -rf ${pahi-testrunner}/tests/testdata.dhall $out/tests/testdata.dhall
+      cp -rf ${pahi-testrunner}/tests/bench.sh $out/tests/bench.sh
 
       cp $src/README.md $out/README.md
       cp $src/LICENSE $out/LICENSE
