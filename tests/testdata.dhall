@@ -164,6 +164,34 @@ in  { cases =
         , exitsWith = 0
         , fname = "magic_conch.wasm"
         }
+      , test::{
+        , interpreter = inter.cwa
+        , exitsWith = 0
+        , fname = "blake2stress.wasm"
+        }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
+        , fname = "blake2stress.wasm"
+        }
+      , test::{ interpreter = inter.cwa, exitsWith = 0, fname = "fibber.wasm" }
+      , test::{ interpreter = inter.pahi, exitsWith = 0, fname = "fibber.wasm" }
+      , test::{ interpreter = inter.cwa, exitsWith = 0, fname = "bigjson.wasm" }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
+        , fname = "bigjson.wasm"
+        }
+      , test::{
+        , interpreter = inter.cwa
+        , exitsWith = 0
+        , fname = "k8sparse.wasm"
+        }
+      , test::{
+        , interpreter = inter.pahi
+        , exitsWith = 0
+        , fname = "k8sparse.wasm"
+        }
       ]
     , env =
       [ "MAGIC_CONCH=yes"

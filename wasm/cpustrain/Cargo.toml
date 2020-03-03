@@ -4,10 +4,26 @@ version = "0.1.0"
 authors = ["Christine Dodrill <me@christine.website>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "blake2stress"
+path = "src/bin/blake2stress.rs"
+
+[[bin]]
+name = "bigjson"
+path = "src/bin/bigjson.rs"
+
+[[bin]]
+name = "fibber"
+path = "src/bin/fibber.rs"
+
+[[bin]]
+name = "k8sparse"
+path = "src/bin/k8sparse.rs"
 
 [dependencies]
 blake2 = "0.8.1"
 snap = "1"
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+serde_yaml = "0.8"
 
 olin = { path = "../olin" }
