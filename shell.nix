@@ -17,6 +17,7 @@ in pkgs.mkShell {
 
     # native dependencies
     pkgs.openssl
+    pkgs.pkg-config
 
     # olin-docs
     dhall.dhall-simple
