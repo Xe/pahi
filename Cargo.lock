@@ -1112,9 +1112,9 @@ checksum = "cccddf32554fecc6acb585f82a32a72e28b48f8c4c1883ddfeeeaa96f7d8e519"
 
 [[package]]
 name = "wasmer-clif-backend"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "261005b104e5435bd8a70f343aa078e2a66bbeb6d1e043d1d6d98e130e98c8e0"
+checksum = "be2401c6713dc5fa8b5d13ee715b5ae7526661f4c5a48ec1763725578466fa29"
 dependencies = [
  "byteorder",
  "cranelift-codegen",
@@ -1164,9 +1164,9 @@ dependencies = [
 
 [[package]]
 name = "wasmer-runtime"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "099296804814aa05020183bab49dd6f98a3f53f51cda11c00cce6db9b67315b5"
+checksum = "05672e5597b66ea3bebaac1665b6578f77971e7d93241b1bbb523fe9795ec809"
 dependencies = [
  "lazy_static",
  "memmap",
@@ -1178,9 +1178,9 @@ dependencies = [
 
 [[package]]
 name = "wasmer-runtime-core"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47bfa47cf98230b3f35be4da2e6117befb77286aa4bcdcd895e2c72ce160fdd0"
+checksum = "6bf014d5d0169e46a1577085d9bcc12d30d5faa7fc3608c93a2bbe0a09a5e35e"
 dependencies = [
  "bincode",
  "blake3",
@@ -1207,9 +1207,9 @@ dependencies = [
 
 [[package]]
 name = "wasmer-win-exception-handler"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb80a3ad1c9d0a378c28e65b019433d7cb9d6b579c257e12126d66658c4b1b01"
+checksum = "c67ac785a3dfbf524c5788e2be4d64781858f91bddd3a319ba7b8e129c6e3a30"
 dependencies = [
  "cmake",
  "libc",
