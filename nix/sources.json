@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "ee15d1214a8fb58967a24d629062e4ccdd9a925a",
-        "sha256": "1x5yjbizwvsqrwvfjaljd6wsfmd3ijvw2zgk89545nipqi5ibx7b",
+        "rev": "1dd63230066a93c61ab7a66934eb0aae3f1a3613",
+        "sha256": "1xn8m62ypg13jh4zf101qmfa6gy8cl923fgwvk9c33m573h3k154",
         "type": "tarball",
-        "url": "https://github.com/nmattia/naersk/archive/ee15d1214a8fb58967a24d629062e4ccdd9a925a.tar.gz",
+        "url": "https://github.com/nmattia/naersk/archive/1dd63230066a93c61ab7a66934eb0aae3f1a3613.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "Xe",
         "repo": "olin",
-        "rev": "f32f6779f1a0dc822d09801f14b8264667bb18eb",
-        "sha256": "12cx690wgwhxmbi1gcdk7bjzm2dpnv1kxqddvm3v87iwilm88108",
+        "rev": "22f2e8f74ba20b6b9df52a0ab5f7055015d4a42f",
+        "sha256": "086rb91r2yq90yx9ay878h405gy9x37fa2ji1a83si5mrmb3bqg8",
         "type": "tarball",
-        "url": "https://github.com/Xe/olin/archive/f32f6779f1a0dc822d09801f14b8264667bb18eb.tar.gz",
+        "url": "https://github.com/Xe/olin/archive/22f2e8f74ba20b6b9df52a0ab5f7055015d4a42f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
