@@ -30,6 +30,6 @@ path = "src/bin/magic_conch.rs"
 
 [dependencies]
 chrono = "0.4"
-http = "0.1"
+http = "0.2"
 httparse = "1.3.2"
 wee_alloc = "0.4.3"
