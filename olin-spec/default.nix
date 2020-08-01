@@ -9,6 +9,8 @@ pkgs.stdenv.mkDerivation rec {
   buildInputs = [ dhall.dhall-simple dhall-lang ];
 
   buildPhase = ''
+    export DHALL_LOC=${dhall-lang}/Prelude/package.dhall
+    echo $DHALL_LOC
     buildDir=$(pwd)
     (cd $src && dhall text < $src/renderTypesToMD.dhall) > types.md
     (cd $src/errors && dhall text < renderErrorMD.dhall) > errors.md

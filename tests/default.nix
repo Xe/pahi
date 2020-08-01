@@ -13,8 +13,8 @@ buildGoPackage {
   buildFlags = "-tags release";
 
   postInstall = ''
-    mkdir -p $bin/tests
-    cp -rf $src/testdata.dhall $bin/tests/testdata.dhall
-    cp -rf $src/bench.sh $bin/tests/bench.sh
+    mkdir -p $out/tests
+    cp -rf $src/testdata.dhall $out/tests/testdata.dhall
+    cp -rf $src/bench.sh $out/tests/bench.sh
   '';
 }
