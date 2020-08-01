@@ -1,6 +1,6 @@
 use crate::{error::Error, resource::Resource};
 use log::error;
-use openssl::ssl::{SslConnector, SslMethod, SslStream};
+use openssl::ssl::{SslConnector, SslMethod, SslStream, SslVerifyMode};
 use std::io::{self, Read, Write};
 use std::net::TcpStream;
 use url::Url;
@@ -33,7 +33,9 @@ impl Resource for Gemini {
                 Err(Error::Unknown)
             })
             .and_then(|conn| {
-                let connector = SslConnector::builder(SslMethod::tls()).unwrap().build();
+                let mut builder = SslConnector::builder(SslMethod::tls()).unwrap();
+                builder.set_verify(SslVerifyMode::NONE);
+                let connector = builder.build();
                 connector
                     .connect(host.as_str(), conn)
                     .or_else(|why| {
