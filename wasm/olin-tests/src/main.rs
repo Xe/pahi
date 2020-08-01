@@ -26,6 +26,7 @@ fn main() -> Result<(), std::io::Error> {
         regression::issue22::test,
         regression::issue37::test,
         regression::issue39::test,
+        scheme::gemini::test,
         scheme::http::test,
         scheme::log::test,
         scheme::null::test,

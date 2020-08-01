@@ -1,6 +1,6 @@
 use crate::{
     resource::Resource,
-    scheme::{http::Http, https::Https, log::Log, null::Null, random::Random, zero::Zero},
+    scheme::{Gemini, Http, Https, Log, Null, Random, Zero},
     *,
 };
 use log::debug;
@@ -24,6 +24,13 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
         Ok(uri) => {
             let fd = env.get_fd();
             return match uri.scheme() {
+                "gemini" => match Gemini::new(uri) {
+                    Ok(res) => {
+                        env.resources.insert(fd, Box::new(res));
+                        return Ok(fd as i32);
+                    }
+                    Err(why) => Ok(why as i32),
+                }
                 "http" => match Http::new(uri) {
                     Ok(res) => {
                         env.resources.insert(fd, Box::new(res));
