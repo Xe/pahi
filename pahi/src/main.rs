@@ -4,7 +4,7 @@ use cachedir::CacheDirConfig;
 use pahi_olin::*;
 use std::fs;
 use structopt::StructOpt;
-use wasmer_runtime::{cache::*, compile, Module};
+use wasmer_runtime::{cache::*, compile, error::RuntimeError, Func, Module};
 
 #[macro_use]
 extern crate log;
@@ -79,13 +79,16 @@ fn main() -> Result<(), String> {
             unsafe { FileSystemCache::new(cache_dir).expect("wanted to create FS cache") };
         let key = WasmHash::generate(&data);
 
-        if let Ok(modu) = fs_cache.load(key) {
-            module = modu;
-        } else {
-            module = compile(data).expect("module to compile");
-            fs_cache
-                .store(key, module.clone())
-                .expect("cache storage to work");
+        match fs_cache.load(key) {
+            Ok(modu) => {
+                module = modu;
+            }
+            _ => {
+                module = compile(data).expect("module to compile");
+                fs_cache
+                    .store(key, module.clone())
+                    .expect("cache storage to work");
+            }
         }
     } else {
         module = compile(data).expect("module to compile");
@@ -93,15 +96,19 @@ fn main() -> Result<(), String> {
 
     let mut instance = module.instantiate(&imports).expect("instantiation to work");
     let result = instance
-        .func::<(), ()>(&opt.entrypoint)
+        .exports
+        .get::<Func<(), ()>>(&opt.entrypoint)
         .expect("_start not found")
         .call();
 
-    if let Err(ref why) = result {
-        if let Some(exit) = why.0.downcast_ref::<ExitCode>() {
-            exit_code = exit.code;
-        } else {
-            error!("{} exited violently: {:?}", filename, why);
+    if let Err(RuntimeError::User(why)) = result {
+        match why.downcast_ref::<ExitCode>() {
+            Some(exit) => {
+                exit_code = exit.code;
+            }
+            _ => {
+                error!("{} exited violently: {:?}", filename, why);
+            }
         }
     } else {
         info!("{} exited peacefully", filename);

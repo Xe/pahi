@@ -13,6 +13,6 @@ log = "0.4"
 num-derive = "0.3"
 num-traits = "0.2"
 structopt = "0.3"
-wasmer-runtime = "0.16"
+wasmer-runtime = "0.17"
 
 pahi-olin = {path = "../pahi-olin"}
