@@ -2,14 +2,16 @@
 #![no_main]
 #![feature(start)]
 
-extern crate olin;
-
 mod ns;
 mod olintest;
 mod regression;
 mod scheme;
 
-olin::entrypoint!();
+use log::error;
+use olin::{entrypoint, runtime::exit};
+use std::io::Error;
+
+entrypoint!();
 
 fn main() -> Result<(), std::io::Error> {
     let mut fail_count = 0;
@@ -38,11 +40,11 @@ fn main() -> Result<(), std::io::Error> {
         match func() {
             Ok(()) => {}
             Err(e) => {
-                olin::log::error(&format!("test error: {:?}", e));
+                error!("test error: {:?}", e);
                 fail_count += 1;
             }
         }
     }
 
-    olin::runtime::exit(fail_count);
+    exit(fail_count);
 }

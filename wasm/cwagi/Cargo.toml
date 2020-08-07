@@ -5,4 +5,5 @@ authors = ["Christine Dodrill <me@christine.website>"]
 edition = "2018"
 
 [dependencies]
+log = "0"
 olin = { path = "../olin" }

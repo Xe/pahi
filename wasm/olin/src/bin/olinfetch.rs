@@ -3,7 +3,8 @@
 
 extern crate olin;
 
-use olin::{entrypoint, log, runtime, stdio, time};
+use log::error;
+use olin::{entrypoint, runtime, stdio, time};
 use std::io::Write;
 
 entrypoint!();
@@ -12,7 +13,7 @@ fn main() -> Result<(), std::io::Error> {
     let mut rt_name = [0u8; 32];
     let runtime_name = runtime::name_buf(rt_name.as_mut())
         .ok_or_else(|| {
-            log::error("Runtime name larger than 32 byte limit");
+            error!("Runtime name larger than 32 byte limit");
             1
         })
         .unwrap();

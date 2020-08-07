@@ -3,15 +3,16 @@
 
 extern crate olin;
 
-use olin::{log, entrypoint};
+use log::{error, info, warn};
+use olin::entrypoint;
 
 entrypoint!();
 
 fn main() -> Result<(), std::io::Error> {
     let string = "hi";
-    log::error(&string);
-    log::warning(&string);
-    log::info(&string);
+    error!("{}", string);
+    warn!("{}", string);
+    info!("{}", string);
 
     Ok(())
 }

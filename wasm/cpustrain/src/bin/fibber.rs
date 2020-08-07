@@ -3,7 +3,8 @@
 
 extern crate olin;
 
-use olin::{entrypoint, log};
+use log::info;
+use olin::entrypoint;
 
 entrypoint!();
 
@@ -15,8 +16,8 @@ fn fib(n: u64) -> u64 {
 }
 
 fn main() -> Result<(), std::io::Error> {
-    log::info("starting");
+    info!("starting");
     fib(30);
-    log::info("done");
+    info!("done");
     Ok(())
 }
