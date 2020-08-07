@@ -1,7 +1,7 @@
 extern crate olin;
 
-use olin::runtime;
 use log::{error, info};
+use olin::runtime;
 
 /// This tests for https://github.com/CommonWA/cwa-spec/blob/master/ns/runtime.md
 pub extern "C" fn test() -> Result<(), i32> {

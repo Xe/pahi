@@ -1,8 +1,8 @@
 extern crate olin;
 
+use log::{error, info};
 use olin::env;
 use std::str;
-use log::{error, info};
 
 /// This tests for https://github.com/CommonWA/cwa-spec/blob/master/ns/env.md
 pub extern "C" fn test() -> Result<(), i32> {

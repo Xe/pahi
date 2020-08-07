@@ -1,8 +1,8 @@
 extern crate olin;
 
+use log::{error, info};
 use olin::stdio;
 use std::io::{Read, Write};
-use log::{error, info};
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running ns::stdio tests");

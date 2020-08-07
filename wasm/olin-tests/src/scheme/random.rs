@@ -1,8 +1,8 @@
 extern crate olin;
 
+use log::{error, info};
 use olin::Resource;
 use std::io::{Read, Write};
-use log::{info, error};
 
 /// This tests for https://github.com/CommonWA/cwa-spec/blob/master/schemes/random.md
 pub extern "C" fn test() -> Result<(), i32> {

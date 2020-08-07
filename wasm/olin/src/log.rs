@@ -1,5 +1,5 @@
 use crate::sys;
-use log::{Record, Level as LogLevel, Metadata, SetLoggerError, LevelFilter};
+use log::{Level as LogLevel, LevelFilter, Metadata, Record, SetLoggerError};
 
 /// See Level enum defined in https://github.com/CommonWA/cwa-spec/blob/master/ns/log.md#write
 #[repr(i32)]
@@ -56,7 +56,10 @@ impl log::Log for Logger {
     }
 
     fn log(&self, record: &Record) {
-        write(record.level().into(), &format!(r#"{} -- {}"#, record.target(), record.args()))
+        write(
+            record.level().into(),
+            &format!(r#"{} -- {}"#, record.target(), record.args()),
+        )
     }
 
     fn flush(&self) {}
@@ -65,6 +68,5 @@ impl log::Log for Logger {
 pub(crate) static LOGGER: Logger = Logger;
 
 pub fn init() -> Result<(), SetLoggerError> {
-    log::set_logger(&LOGGER)
-        .map(|()| log::set_max_level(LevelFilter::Info))
+    log::set_logger(&LOGGER).map(|()| log::set_max_level(LevelFilter::Info))
 }

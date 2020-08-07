@@ -3,8 +3,8 @@
 
 extern crate olin;
 
-use olin::{entrypoint, startup};
 use log::info;
+use olin::{entrypoint, startup};
 
 entrypoint!();
 

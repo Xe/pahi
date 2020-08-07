@@ -1,8 +1,8 @@
 extern crate olin;
 
+use log::{error, info};
 use olin::Resource;
 use std::io::{Read, Write};
-use log::{error, info};
 
 /// This tests for https://github.com/CommonWA/cwa-spec/blob/master/ns/runtime.md
 pub extern "C" fn test() -> Result<(), i32> {

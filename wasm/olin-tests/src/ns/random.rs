@@ -1,7 +1,7 @@
 extern crate olin;
 
-use olin::{random};
 use log::info;
+use olin::random;
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running ns::random tests");

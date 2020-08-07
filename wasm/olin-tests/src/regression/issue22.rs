@@ -1,7 +1,7 @@
 extern crate olin;
 
-use olin::env;
 use log::{error, info};
+use olin::env;
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("testing for issue 22: https://github.com/Xe/olin/issues/22");

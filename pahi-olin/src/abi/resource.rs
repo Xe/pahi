@@ -30,7 +30,7 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
                         return Ok(fd as i32);
                     }
                     Err(why) => Ok(why as i32),
-                }
+                },
                 "http" => match Http::new(uri) {
                     Ok(res) => {
                         env.resources.insert(fd, Box::new(res));

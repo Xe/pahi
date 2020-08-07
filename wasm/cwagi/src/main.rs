@@ -3,13 +3,13 @@
 
 extern crate olin;
 
+use log::{error, warn};
 use olin::env;
 use olin::runtime;
 use olin::startup;
 use olin::stdio;
 use std::io::Write;
 use std::string::String;
-use log::{error, warn};
 
 olin::entrypoint!();
 
@@ -103,12 +103,14 @@ I know the following about the environment I am running in:\n",
         .map_err(|e| {
             error!("error getting RUN_ID: {:?}", e);
             1
-        }).unwrap();
+        })
+        .unwrap();
     let worker_id: String = env::get("WORKER_ID")
         .map_err(|e| {
             error!("error getting WORKER_ID: {:?}", e);
             1
-        }).unwrap();
+        })
+        .unwrap();
 
     result.push_str(&format!(
         " - RUN_ID:    {}\n - WORKER_ID: {}\n",
@@ -129,7 +131,8 @@ I know the following about the environment I am running in:\n",
             .ok_or_else(|| {
                 error!("arg {} missing", x);
                 panic!("arg missing");
-            }).unwrap();
+            })
+            .unwrap();
         result.push_str(&format!(" - arg {}: {}\n", x, arg));
     }
 

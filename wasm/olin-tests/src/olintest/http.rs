@@ -2,8 +2,8 @@ extern crate http;
 extern crate olin;
 extern crate std;
 
-use std::vec::Vec;
 use log::{error, info};
+use std::vec::Vec;
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running olintest::http tests");

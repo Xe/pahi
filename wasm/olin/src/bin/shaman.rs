@@ -2,8 +2,8 @@
 #![feature(start)]
 
 use log::error;
-use std::io::Write;
 use olin::{entrypoint, stdio};
+use std::io::Write;
 
 olin::entrypoint!();
 
@@ -15,7 +15,8 @@ fn main() -> Result<(), std::io::Error> {
         .map_err(|e| {
             error!("can't write to stdout: {:?}", e);
             1
-        }).unwrap();
+        })
+        .unwrap();
 
     Ok(())
 }

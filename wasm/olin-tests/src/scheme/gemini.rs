@@ -1,9 +1,9 @@
 extern crate httparse;
 extern crate olin;
 
-use olin::Resource;
-use std::io::{Read, Write, Cursor};
 use log::{error, info};
+use olin::Resource;
+use std::io::{Cursor, Read, Write};
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running scheme::gemini tests");

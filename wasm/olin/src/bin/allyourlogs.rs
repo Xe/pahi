@@ -3,7 +3,7 @@
 
 extern crate olin;
 
-use log::{error, warn, info};
+use log::{error, info, warn};
 use olin::entrypoint;
 
 entrypoint!();

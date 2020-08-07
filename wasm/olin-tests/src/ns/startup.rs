@@ -1,7 +1,7 @@
 extern crate olin;
 
-use olin::startup;
 use log::{error, info};
+use olin::startup;
 
 /// This tests for https://github.com/CommonWA/cwa-spec/blob/master/ns/startup.md
 pub extern "C" fn test() -> Result<(), i32> {

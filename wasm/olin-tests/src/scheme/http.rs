@@ -1,9 +1,9 @@
 extern crate httparse;
 extern crate olin;
 
-use olin::{Resource, http};
+use log::{error, info};
+use olin::{http, Resource};
 use std::io::{Read, Write};
-use log::{info, error};
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running scheme::http tests");

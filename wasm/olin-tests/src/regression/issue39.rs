@@ -1,8 +1,8 @@
 extern crate olin;
 
+use log::{error, info};
 use olin::Resource;
 use std::io::Write;
-use log::{error, info};
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("testing for issue 39: https://github.com/Xe/olin/issues/39");

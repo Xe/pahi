@@ -1,7 +1,7 @@
 extern crate olin;
 
-use olin::sys;
 use log::{error, info};
+use olin::sys;
 
 pub extern "C" fn test() -> Result<(), i32> {
     info!("testing for issue 37: https://github.com/Xe/olin/issues/37");
