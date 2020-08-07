@@ -153,39 +153,7 @@ mod err {
     }
 }
 
-pub mod log {
-    use super::sys;
-
-    /// See Level enum defined in https://github.com/CommonWA/cwa-spec/blob/master/ns/log.md#write
-    #[repr(i32)]
-    #[derive(Debug)]
-    pub enum Level {
-        Error = 1,
-        Warning = 3,
-        Info = 6,
-    }
-
-    /// Writes a line of text with the specified level to the host logger.
-    pub fn write(level: Level, text: &str) {
-        let text = text.as_bytes();
-        unsafe { sys::log_write(level as i32, text.as_ptr(), text.len()) }
-    }
-
-    /// Convenience wrapper for the error level.
-    pub fn error(text: &str) {
-        write(Level::Error, text)
-    }
-
-    /// Convenience wrapper for the warning level.
-    pub fn warning(text: &str) {
-        write(Level::Warning, text)
-    }
-
-    /// Convenience wrapper for the info level.
-    pub fn info(text: &str) {
-        write(Level::Info, text)
-    }
-}
+pub mod log;
 
 /// Access to environment variables
 pub mod env {
@@ -427,14 +395,15 @@ macro_rules! entrypoint {
         #[no_mangle]
         #[start]
         extern "C" fn _start() {
-            olin::panic::set_hook();
+            ::olin::panic::set_hook();
+            let _ = ::olin::log::init();
 
             if let Err(e) = main() {
-                olin::log::error(format!("Application error: {:?}", e).as_str());
-                olin::runtime::exit(1);
+                ::log::error!("Application error: {:?}", e);
+                ::olin::runtime::exit(1);
             }
 
-            olin::runtime::exit(0);
+            ::olin::runtime::exit(0);
         }
     };
 }

@@ -1,60 +1,60 @@
 extern crate httparse;
 extern crate olin;
 
-use olin::Resource;
-use olin::*;
+use olin::{Resource, http};
 use std::io::{Read, Write};
+use log::{info, error};
 
 pub extern "C" fn test() -> Result<(), i32> {
-    log::info("running scheme::http tests");
+    info!("running scheme::http tests");
 
     let reqd = "GET /404 HTTP/1.1\r\nHost: xena.greedo.xeserv.us\r\nUser-Agent: Bit-banging it in rust\r\n\r\n";
     let mut headers = [httparse::EMPTY_HEADER; 16];
     let mut req = httparse::Request::new(&mut headers);
-    log::info("validating HTTP request");
+    info!("validating HTTP request");
     req.parse(reqd.as_bytes()).map_err(|e| {
-        log::error(&format!("can't parse request: {:?}", e));
+        error!("can't parse request: {:?}", e);
         1
     });
 
-    log::info("opening https://xena.greedo.xeserv.us");
+    info!("opening https://xena.greedo.xeserv.us");
     let mut fout: Resource = Resource::open("https://xena.greedo.xeserv.us").map_err(|e| {
-        log::error(&format!("couldn't open: {:?}", e));
+        error!("couldn't open: {:?}", e);
         1
     })?;
 
-    log::info("writing HTTP request");
+    info!("writing HTTP request");
     fout.write(reqd.as_bytes()).map_err(|e| {
-        log::error(&format!("can't write request: {:?}", e));
+        error!("can't write request: {:?}", e);
         1
     });
 
-    log::info("fetching response");
+    info!("fetching response");
     fout.flush().map_err(|e| {
-        log::error(&format!("can't send request to remote server: {:?}", e));
+        error!("can't send request to remote server: {:?}", e);
         1
     });
 
-    log::info("reading response");
+    info!("reading response");
     let mut resp_data = [0u8; 2048];
     fout.read(&mut resp_data).map_err(|e| {
-        log::error(&format!("can't read response: {:?}", e));
+        error!("can't read response: {:?}", e);
         1
     });
 
-    log::info("parsing response");
+    info!("parsing response");
     let mut headers = [httparse::EMPTY_HEADER; 16];
     let mut resp = httparse::Response::new(&mut headers);
     resp.parse(&resp_data).map_err(|e| {
-        log::error(&format!("can't parse response: {:?}", e));
+        error!("can't parse response: {:?}", e);
         1
     });
 
-    log::info(&format!(
+    info!(
         "version: {:?}, code: {:?}, reason: {:?}",
         resp.version, resp.code, resp.reason
-    ));
+    );
 
-    log::info("scheme::http tests passed");
+    info!("scheme::http tests passed");
     Ok(())
 }

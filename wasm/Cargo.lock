@@ -103,6 +103,7 @@ name = "cpustrain"
 version = "0.1.0"
 dependencies = [
  "blake2",
+ "log",
  "olin",
  "serde_json",
  "serde_yaml",
@@ -123,6 +124,7 @@ dependencies = [
 name = "cwagi"
 version = "0.1.0"
 dependencies = [
+ "log",
  "olin",
 ]
 
@@ -367,6 +369,7 @@ dependencies = [
  "chrono",
  "http",
  "httparse",
+ "log",
  "wee_alloc",
 ]
 
@@ -377,6 +380,7 @@ dependencies = [
  "chrono",
  "http",
  "httparse",
+ "log",
  "maj",
  "olin",
 ]

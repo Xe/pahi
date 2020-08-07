@@ -4,12 +4,12 @@
 extern crate olin;
 
 use olin::env;
-use olin::log;
 use olin::runtime;
 use olin::startup;
 use olin::stdio;
 use std::io::Write;
 use std::string::String;
+use log::{error, warn};
 
 olin::entrypoint!();
 
@@ -45,11 +45,11 @@ struct Response {
 
 pub fn friendly_main() -> Result<(), i32> {
     let method = env::get("REQUEST_METHOD").map_err(|e| {
-        log::error(&format!("error getting REQUEST_METHOD: {:?}", e));
+        error!("error getting REQUEST_METHOD: {:?}", e);
         1
     })?;
     let request_uri = env::get("PATH_INFO").map_err(|e| {
-        log::error(&format!("error getting REQUEST_URI: {:?}", e));
+        error!("error getting REQUEST_URI: {:?}", e);
         1
     })?;
 
@@ -66,13 +66,13 @@ pub fn friendly_main() -> Result<(), i32> {
     let set: std::vec::Vec<u8> = serialize(&resp);
 
     let len = fout.write(set.as_slice()).map_err(|e| {
-        log::error(&format!("can't write resulting response: {:?}", e));
+        error!("can't write resulting response: {:?}", e);
         1
     })?;
 
     if len != set.len() {
-        log::warning("wasn't able to write entire response");
-        log::warning(&format!("wanted: {}, got: {}", set.len(), len));
+        warn!("wasn't able to write entire response");
+        warn!("wanted: {}, got: {}", set.len(), len);
     }
 
     Ok(())
@@ -101,12 +101,12 @@ I know the following about the environment I am running in:\n",
 
     let run_id: String = env::get("RUN_ID")
         .map_err(|e| {
-            log::error(&format!("error getting RUN_ID: {:?}", e));
+            error!("error getting RUN_ID: {:?}", e);
             1
         }).unwrap();
     let worker_id: String = env::get("WORKER_ID")
         .map_err(|e| {
-            log::error(&format!("error getting WORKER_ID: {:?}", e));
+            error!("error getting WORKER_ID: {:?}", e);
             1
         }).unwrap();
 
@@ -127,7 +127,7 @@ I know the following about the environment I am running in:\n",
         let mut arg_val = [0u8; 64];
         let arg = startup::arg_at_buf(x, &mut arg_val)
             .ok_or_else(|| {
-                log::error(&format!("arg {} missing", x));
+                error!("arg {} missing", x);
                 panic!("arg missing");
             }).unwrap();
         result.push_str(&format!(" - arg {}: {}\n", x, arg));

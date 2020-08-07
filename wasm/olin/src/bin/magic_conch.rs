@@ -3,7 +3,8 @@
 #![macro_use]
 extern crate olin;
 
-use olin::{entrypoint, env, log};
+use log::info;
+use olin::{entrypoint, env};
 
 entrypoint!();
 
@@ -11,7 +12,7 @@ fn main() -> Result<(), env::Error> {
     let name = "MAGIC_CONCH";
     let value = env::get(name)?;
 
-    log::info(&format!("{} -> {}", name, value));
+    info!("{} -> {}", name, value);
 
     Ok(())
 }
