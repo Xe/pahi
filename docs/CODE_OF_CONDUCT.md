@@ -22,7 +22,7 @@ Be well, Creator. Be well and create.
 ---
 
 For information on or regarding conflict resolution, please contact [Christine Dodrill](https://christine.website/contact).
-The Olin project is not interested in policing the behavior of users that participate in it.
+The pa'i project is not interested in policing the behavior of users that participate in it.
 Please do not act in a way that would merit such policing. Use common sense. If you cannot
 trust yourself to use common sense, you may have limited enjoyment of this community space.
 
