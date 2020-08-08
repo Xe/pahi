@@ -95,7 +95,6 @@ pub mod sys {
 }
 
 mod err {
-    use std::error;
     use std::fmt;
     use std::io;
 
@@ -139,7 +138,7 @@ mod err {
         }
     }
 
-    impl self::error::Error for Error {}
+    impl std::error::Error for Error {}
 
     pub fn check_io(error: i32) -> Result<i32, io::ErrorKind> {
         match error {

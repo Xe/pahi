@@ -3,32 +3,36 @@
 
 extern crate olin;
 
-use log::error;
-use olin::{entrypoint, runtime, stdio, time};
+use anyhow::{anyhow, Result};
+use olin::{entrypoint, env, runtime, stdio, time};
 use std::io::Write;
 
 entrypoint!();
 
-fn main() -> Result<(), std::io::Error> {
+fn main() -> Result<()> {
+    let mut out = stdio::out();
+    if let Ok(url) = env::get("GEMINI_URL") {
+        write!(out, "20 text/gemini\n# WebAssembly Runtime Information\n")?;
+        write!(out, "URL: {}\n", url)?;
+        write!(
+            out,
+            "Server software: {}\n",
+            env::get("SERVER_SOFTWARE").unwrap()
+        )?;
+    }
+
     let mut rt_name = [0u8; 32];
     let runtime_name = runtime::name_buf(rt_name.as_mut())
-        .ok_or_else(|| {
-            error!("Runtime name larger than 32 byte limit");
-            1
-        })
-        .unwrap();
+        .ok_or_else(|| anyhow!("Runtime name larger than 32 byte limit"))?;
 
-    let mut out = stdio::out();
-
-    write!(out, "CPU:\t\t{}\n", "wasm32").expect("write to work");
+    write!(out, "CPU:     {}\n", "wasm32").expect("write to work");
     write!(
         out,
-        "Runtime:\t{} {}.{}\n",
+        "Runtime: {} {}.{}\n",
         runtime_name,
         runtime::spec_major(),
         runtime::spec_minor()
-    )
-    .expect("write to work");
-    write!(out, "Now:\t\t{}\n", time::now().to_rfc3339()).expect("write to work");
+    )?;
+    write!(out, "Now:     {}\n", time::now().to_rfc3339())?;
     Ok(())
 }

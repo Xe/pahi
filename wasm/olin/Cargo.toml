@@ -29,8 +29,10 @@ name = "magic_conch"
 path = "src/bin/magic_conch.rs"
 
 [dependencies]
+anyhow = "1"
 chrono = "0.4"
 http = "0.1"
 httparse = "1.3.2"
 log = "0"
+thiserror = "1"
 wee_alloc = "0.4.3"

@@ -5,7 +5,7 @@ use log::error;
 use olin::{entrypoint, stdio};
 use std::io::Write;
 
-olin::entrypoint!();
+entrypoint!();
 
 fn main() -> Result<(), std::io::Error> {
     let bytes = include_bytes!("shaman.aa");

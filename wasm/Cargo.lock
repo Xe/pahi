@@ -10,6 +10,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.32"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6b602bfe940d21c130f3895acd65221e8a61270debe89d628b9cb4e3ccb8569b"
+
+[[package]]
 name = "atty"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -366,10 +372,12 @@ dependencies = [
 name = "olin"
 version = "0.3.0"
 dependencies = [
+ "anyhow",
  "chrono",
  "http",
  "httparse",
  "log",
+ "thiserror",
  "wee_alloc",
 ]
 
