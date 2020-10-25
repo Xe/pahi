@@ -19,6 +19,7 @@ pub fn open(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) -> Result<i32, err
     let uri = Url::options()
         .syntax_violation_callback(Some(&|v| violations.borrow_mut().push(v)))
         .parse(&raw_uri);
+    env.log_url(raw_uri.to_string());
 
     match uri {
         Ok(uri) => {

@@ -9,11 +9,14 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+cachedir = "0.1.1"
 chrono = "0.4"
 log = "0.4"
+color-eyre = "0.5"
 num-derive = "0.3"
 num-traits = "0.2"
 openssl = "0.10.30"
 rand = "0.7"
+thiserror = "1"
 url = "2"
 wasmer-runtime = "0.17"

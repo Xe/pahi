@@ -8,17 +8,12 @@ use std::io::{Cursor, Read, Write};
 pub extern "C" fn test() -> Result<(), i32> {
     info!("running scheme::gemini tests");
     const request: &'static str = "gemini://cetacean.club/";
+    info!("got here");
 
     let mut fout: Resource = Resource::open(request).map_err(|why| {
         error!("couldn't open {}: {}", request, why);
         1
     })?;
-
-    fout.write(request.as_bytes()).map_err(|why| {
-        error!("can't write request: {}", why);
-        1
-    })?;
-    fout.write("\r\n".as_bytes()).unwrap();
 
     let mut response: Vec<u8> = vec![];
     fout.read(&mut response).map_err(|why| {
