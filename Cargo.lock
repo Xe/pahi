@@ -741,22 +741,18 @@ dependencies = [
 
 [[package]]
 name = "pahi"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
- "cachedir",
  "color-eyre",
  "env_logger",
  "log",
- "num-derive",
- "num-traits",
  "pahi-olin",
  "structopt",
- "wasmer-runtime",
 ]
 
 [[package]]
 name = "pahi-olin"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "cachedir",
  "chrono",

@@ -1,6 +1,6 @@
 [package]
 name = "pahi-olin"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Christine Dodrill <me@christine.website>"]
 edition = "2018"
 description = "The pa'i runtime API bindings"

@@ -1,5 +1,3 @@
-extern crate wasmer_runtime;
-
 use color_eyre::eyre::{Result};
 use pahi_olin::*;
 use std::fs;
