@@ -11,7 +11,7 @@ repository = "https://github.com/Xe/pahi"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cachedir = "0.1.1"
+dirs = "3"
 chrono = "0.4"
 log = "0.4"
 color-eyre = "0.5"

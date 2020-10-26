@@ -1,4 +1,4 @@
-use cachedir::CacheDirConfig;
+use dirs::cache_dir;
 use std::collections::{BTreeMap, HashMap};
 use wasmer_runtime::{cache::*, compile, error::RuntimeError, Func, Module};
 
@@ -77,11 +77,8 @@ pub fn run(opt: Opt, wasm_bytes: &[u8]) -> Result<Status, Error> {
     let module: Module = match opt.cache_prefix {
         None => compile(wasm_bytes)?,
         Some(pfx) => {
-            let cache_dir = CacheDirConfig::new(&pfx)
-                .user_cache(true)
-                .get_cache_dir()
-                .unwrap()
-                .into_path_buf();
+            let mut cache_dir = cache_dir().unwrap();
+            cache_dir.push(pfx);
 
             let mut fs_cache = unsafe { FileSystemCache::new(cache_dir)? };
             let key = WasmHash::generate(&wasm_bytes);
