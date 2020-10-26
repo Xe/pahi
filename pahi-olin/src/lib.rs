@@ -2,12 +2,12 @@
 
 use rand::prelude::*;
 use std::collections::{BTreeMap, HashMap};
-use std::env;
 use std::ffi::c_void;
 use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 
 pub mod abi;
 pub mod error;
+pub mod exec;
 pub mod resource;
 pub mod scheme;
 
@@ -23,23 +23,20 @@ pub struct Process {
     pub name: String,
     pub args: Vec<String>,
     pub called_functions: Box<HashMap<String, u32>>,
+    pub resource_urls: Vec<String>,
     pub envvars: BTreeMap<String, String>,
     pub resources: Box<HashMap<u32, Box<dyn resource::Resource>>>,
 }
 
 impl Process {
-    pub fn new(host_name: String, args: Vec<String>) -> Self {
-        let mut envvars = BTreeMap::new();
+    pub fn new(host_name: String, args: Vec<String>, envvars: BTreeMap<String, String>) -> Self {
         openssl::init();
-
-        for (key, value) in env::vars() {
-            envvars.insert(key, value);
-        }
 
         Process {
             name: host_name,
             args: args,
             called_functions: Box::new(HashMap::new()),
+            resource_urls: vec![],
             envvars: envvars,
             resources: Box::new(HashMap::new()),
         }
@@ -58,6 +55,10 @@ impl Process {
         }
     }
 
+    pub fn log_url(&mut self, url: String) {
+        self.resource_urls.push(url.clone());
+    }
+
     pub fn get_memory_and_environment(ctx: &mut Ctx, mem_index: u32) -> (&Memory, &mut Process) {
         unsafe { ctx.memory_and_data_mut(mem_index) }
     }
@@ -74,7 +75,11 @@ impl Process {
     }
 }
 
-pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
+pub fn import_object(
+    name: String,
+    args: Vec<String>,
+    envvars: BTreeMap<String, String>,
+) -> ImportObject {
     let env_generator = move || {
         let my_name = name.clone();
         fn destructor(data: *mut c_void) {
@@ -82,7 +87,7 @@ pub fn import_object(name: String, args: Vec<String>) -> ImportObject {
                 drop(Box::from_raw(data as *mut Process));
             }
         }
-        let custom_abi_env = Box::new(Process::new(my_name, args.clone()));
+        let custom_abi_env = Box::new(Process::new(my_name, args.clone(), envvars.clone()));
         (
             Box::into_raw(custom_abi_env) as *mut c_void,
             destructor as fn(*mut c_void),

@@ -45,7 +45,11 @@ impl Resource for Gemini {
                         );
                         Err(Error::Unknown)
                     })
-                    .and_then(|stream| Ok(Gemini { stream: stream }))
+                    .and_then(|mut stream| {
+                        stream.write(&u.to_string().as_bytes()).expect("send URL");
+                        stream.write(&"\r\n".as_bytes()).expect("send /r/n");
+                        Ok(Gemini { stream: stream })
+                    })
             })
     }
 

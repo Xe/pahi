@@ -64,11 +64,6 @@ items:
     - hosts:
       - h.christine.website
       secretName: "prod-certs-hlang"
-kind: List
-
----
-apiVersion: v1
-items:
 - apiVersion: v1
   kind: Service
   metadata:
@@ -133,11 +128,6 @@ items:
     - hosts:
       - olin.within.website
       secretName: "prod-certs-olin"
-kind: List
-
----
-apiVersion: v1
-items:
 - apiVersion: v1
   kind: Service
   metadata:
@@ -202,11 +192,6 @@ items:
     - hosts:
       - tulpaforce.xyz
       secretName: "prod-certs-tulpaforcexyz"
-kind: List
-
----
-apiVersion: v1
-items:
 - apiVersion: v1
   kind: Service
   metadata:
