@@ -2,7 +2,6 @@
 
 use rand::prelude::*;
 use std::collections::{BTreeMap, HashMap};
-use std::env;
 use std::ffi::c_void;
 use wasmer_runtime::{func, imports, Ctx, ImportObject, Memory};
 

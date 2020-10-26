@@ -60,6 +60,15 @@ fn main() -> Result<()> {
     match exec::run(exec_opt, data) {
         Ok(status) => {
             if opt.function_log {
+                info!("dumping called syscalls");
+                for (key, val) in status.called_functions.iter() {
+                    info!("{}: {}", key, val);
+                }
+
+                info!("dumping resources");
+                for url in status.resource_urls.iter() {
+                    info!("{}", url);
+                }
             }
 
             if status.exit_code != 0 {
