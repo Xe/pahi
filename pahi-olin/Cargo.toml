@@ -5,6 +5,8 @@ authors = ["Christine Dodrill <me@christine.website>"]
 edition = "2018"
 description = "The pa'i runtime API bindings"
 license = "MIT"
+homepage = "https://github.com/Xe/pahi"
+repository = "https://github.com/Xe/pahi"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
