@@ -21,7 +21,7 @@ name = "k8sparse"
 path = "src/bin/k8sparse.rs"
 
 [dependencies]
-blake2 = "0.8.1"
+blake2 = "0.9.1"
 log = "0"
 snap = "1"
 serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
