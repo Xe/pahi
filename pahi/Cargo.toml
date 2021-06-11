@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 color-eyre = "0.5"
-env_logger = "0.8.1"
+env_logger = "0.8.4"
 log = "0.4"
 structopt = "0.3"
 
