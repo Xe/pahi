@@ -29,7 +29,9 @@
         in mozilla.rustChannelOfTargets channel date targets;
 
       dhall = import easy-dhall-nix;
+      dhall-lang-pkg = import dhall-lang { inherit pkgs; };
       olin-cwa = import olin { };
+
 
       olin-spec = import ./olin-spec {
         inherit dhall-lang pkgs;
@@ -87,6 +89,23 @@
           cp $src/README.md $out/README.md
           cp $src/LICENSE $out/LICENSE
         '';
+      };
+
+      devShell.x86_64-linux = pkgs.mkShell {
+        buildInputs = [
+          rust
+
+          pkgs.hyperfine
+
+          pkgs.openssl
+          pkgs.pkg-config
+
+          dhall-lang-pkg
+          dhall
+
+          pkgs.go
+          olin
+        ];
       };
     };
 }
