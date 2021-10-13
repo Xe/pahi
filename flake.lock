@@ -1,0 +1,115 @@
+{
+  "nodes": {
+    "dhall-lang": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-4CHI3du+DpCeU6vdsirhyuvJXt/9Rl89EkdB//SKHKM=",
+        "type": "tarball",
+        "url": "https://github.com/dhall-lang/dhall-lang/archive/ccb9f5d54b0ecba05a6493e84442ce445e411e9e.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/dhall-lang/dhall-lang/archive/ccb9f5d54b0ecba05a6493e84442ce445e411e9e.tar.gz"
+      }
+    },
+    "easy-dhall-nix": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-r6cU2A2yqRzNkp000TdR5bTCIQGLvfOxiGh5uHjwGQ8=",
+        "type": "tarball",
+        "url": "https://github.com/justinwoo/easy-dhall-nix/archive/7c22a145fcb8e00b61d29efc7543af0c80d709ed.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/justinwoo/easy-dhall-nix/archive/7c22a145fcb8e00b61d29efc7543af0c80d709ed.tar.gz"
+      }
+    },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1632266297,
+        "narHash": "sha256-J1yeJk6Gud9ef2pEf6aKQemrfg1pVngYDSh+SAY94xk=",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "ee7edec50b49ab6d69b06d62f1de554efccb1ccd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1634073448,
+        "narHash": "sha256-e0z1FxOf6BrPUmzgUKlCLf+jA9aHAOT0pLFctHQveGo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5b5d681a0724cc351e84950e6ec92b22134c0e1a",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1629225446,
+        "narHash": "sha256-HJX4Pc5ZUAg4apxB/XHuJ+6ukzvRQqeZMjscOBst2bA=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "0510159186dd2ef46e5464484fbdf119393afa58",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1634073448,
+        "narHash": "sha256-e0z1FxOf6BrPUmzgUKlCLf+jA9aHAOT0pLFctHQveGo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5b5d681a0724cc351e84950e6ec92b22134c0e1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "olin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-r8valcDgcyd9LiiW5I0spUTf4TbTycya2W1eQgjt0ZE=",
+        "type": "tarball",
+        "url": "https://github.com/Xe/olin/archive/0e8c8eea725307f8f396919cbf7f965a0d67b0e0.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/Xe/olin/archive/0e8c8eea725307f8f396919cbf7f965a0d67b0e0.tar.gz"
+      }
+    },
+    "root": {
+      "inputs": {
+        "dhall-lang": "dhall-lang",
+        "easy-dhall-nix": "easy-dhall-nix",
+        "naersk": "naersk",
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-mozilla": "nixpkgs-mozilla",
+        "olin": "olin"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

@@ -1,4 +1,4 @@
-{ sources ? import ../nix/sources.nix, pkgs ? import sources.nixpkgs { }}:
+{ pkgs }:
 let
   src = builtins.filterSource
     (path: type: type != "directory" || builtins.baseNameOf path != "olin-spec")
