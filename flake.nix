@@ -28,7 +28,7 @@
           targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
         in mozilla.rustChannelOfTargets channel date targets;
 
-      dhall = import easy-dhall-nix;
+      dhall = import easy-dhall-nix { inherit pkgs; };
       dhall-lang-pkg = import dhall-lang { inherit pkgs; };
       olin-cwa = import olin { };
 
@@ -106,6 +106,35 @@
           pkgs.go
           olin
         ];
+      };
+
+      packages.x86_64-linux.docker = let
+        img = pkgs.dockerTools.buildLayeredImage {
+          name = "xena/pahi";
+          tag = "latest";
+
+          contents = [ self.defaultPackage.x86_64-linux # pahi
+                       pkgs.bash pkgs.coreutils pkgs.cacert pkgs.hyperfine
+                       dhall.dhall-json-simple ];
+
+          config = {
+            Cmd = [ "/bin/bash" ];
+            WorkingDir = "/";
+            Env = [ "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt" ];
+          };
+        };
+      in pkgs.stdenv.mkDerivation {
+        name = "pahi-docker";
+        version = "latest";
+        src = ./.; # this is a bit of a lie, but it works
+
+        installPhase = ''
+          mkdir -p $out/docker/
+          cp ${img} $out/docker/
+        '';
+
+        doConfigure = false;
+        doBuild = false;
       };
     };
 }
