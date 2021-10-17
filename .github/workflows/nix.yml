@@ -20,7 +20,7 @@ jobs:
         nix build .#docker --impure
         # the shell expansion will identify the build, and, because we know
         # we're guaranteed to only have one file in result/docker due to the
-        nix build .#docker
+        # pure flake, will always properly expand to just the one target image.
         docker load -i result/docker/*
         docker run --rm xena/pahi:latest /bin/testrunner
         docker run --rm -w /wasm xena/pahi:latest /tests/bench.sh
