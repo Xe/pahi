@@ -76,7 +76,7 @@
 
           for f in ${olin-pkg}/bin/*
           do
-            cp "$f" "$out/wasm/$(basename $f)".wasm
+            cp "$f" "$out/wasm/$(basename $f)"
           done
 
           cp -rf ${olin-cwa}/wasm/zig $out/wasm/zig
@@ -98,7 +98,7 @@
 
           contents = [ self.defaultPackage.x86_64-linux # pahi
                        pkgs.bash pkgs.coreutils pkgs.cacert pkgs.hyperfine
-                       dhall.dhall-json-simple ];
+                       dhall.dhall-json-simple dhall-lang ];
 
           config = {
             Cmd = [ "/bin/bash" ];
