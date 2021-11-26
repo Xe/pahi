@@ -26,12 +26,14 @@
           channel = "nightly";
           date = "2020-07-27";
           targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
-        in mozilla.rustChannelOfTargets channel date targets;
+        in (mozilla.rustChannelOf {
+          inherit channel date;
+          sha256 = "sha256-75eK1CNDEkeVvJ1phWOHZBuujMhalYCxbi5sgAFUlvI=";
+        }).rust.override { inherit targets; };
 
       dhall = import easy-dhall-nix { inherit pkgs; };
       dhall-lang-pkg = import dhall-lang { inherit pkgs; };
-      olin-cwa = import olin { };
-
+      olin-cwa = import olin { inherit pkgs; };
 
       olin-spec = import ./olin-spec {
         inherit dhall-lang pkgs;
@@ -76,7 +78,11 @@
 
           for f in ${olin-pkg}/bin/*
           do
+<<<<<<< HEAD
             cp "$f" "$out/wasm/$(basename $f)"
+=======
+            cp "$f" "$out/wasm/$(basename $f)".wasm
+>>>>>>> main
           done
 
           cp -rf ${olin-cwa}/wasm/zig $out/wasm/zig
@@ -91,6 +97,26 @@
         '';
       };
 
+<<<<<<< HEAD
+=======
+      devShell.x86_64-linux = pkgs.mkShell {
+        buildInputs = [
+          rust
+
+          pkgs.hyperfine
+
+          pkgs.openssl
+          pkgs.pkg-config
+
+          dhall-lang-pkg
+          dhall
+
+          pkgs.go
+          olin
+        ];
+      };
+
+>>>>>>> main
       packages.x86_64-linux.docker = let
         img = pkgs.dockerTools.buildLayeredImage {
           name = "xena/pahi";
@@ -98,7 +124,11 @@
 
           contents = [ self.defaultPackage.x86_64-linux # pahi
                        pkgs.bash pkgs.coreutils pkgs.cacert pkgs.hyperfine
+<<<<<<< HEAD
                        dhall.dhall-json-simple dhall-lang ];
+=======
+                       dhall.dhall-json-simple ];
+>>>>>>> main
 
           config = {
             Cmd = [ "/bin/bash" ];
