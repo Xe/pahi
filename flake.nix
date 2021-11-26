@@ -26,7 +26,10 @@
           channel = "nightly";
           date = "2020-07-27";
           targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
-        in mozilla.rustChannelOfTargets channel date targets;
+        in (mozilla.rustChannelOf {
+          inherit channel date;
+          sha256 = "sha256-75eK1CNDEkeVvJ1phWOHZBuujMhalYCxbi5sgAFUlvI=";
+        }).rust.override { inherit targets; };
 
       dhall = import easy-dhall-nix { inherit pkgs; };
       dhall-lang-pkg = import dhall-lang { inherit pkgs; };
