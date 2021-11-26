@@ -33,7 +33,7 @@
 
       dhall = import easy-dhall-nix { inherit pkgs; };
       dhall-lang-pkg = import dhall-lang { inherit pkgs; };
-      olin-cwa = import olin { };
+      olin-cwa = import olin { inherit pkgs; };
 
 
       olin-spec = import ./olin-spec {
